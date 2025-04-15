@@ -30,7 +30,7 @@ class Gamehistory {
     return formattedDate.format(dateTime);
   }
 
-  String  outputWinner(){
+  String outputWinner(){
     if(isPlayerWinner){
       return "Victory";
     }

@@ -1,19 +1,19 @@
 import 'dart:ffi';
 
 class Playerinformation {
-  String platerName;
-  String playerID;
-  int totalGamesPlayed;
-  int totalGamesWon;
-  int totalGamesLost;
-  int totalGamesDrawn;
-  double winRate;
-  int currentWinSteak;
-  int longestWinSteak;
+  final String playerName;
+  final bool darkMode;
+  final int totalGamesPlayed;
+  final int totalGamesWon;
+  final int totalGamesLost;
+  final int totalGamesDrawn;
+  final double winRate;
+  final int currentWinSteak;
+  final int longestWinSteak;
 
   Playerinformation({
-    required this.platerName,
-    required this.playerID,
+    required this.playerName,
+    required this.darkMode,
     required this.totalGamesPlayed,
     required this.totalGamesWon,
     required this.totalGamesLost,
@@ -29,6 +29,14 @@ class Playerinformation {
     } else {
       int conclusiveGames = totalGamesPlayed - totalGamesDrawn;
       return (totalGamesWon / conclusiveGames) * 100;
+    }
+  }
+
+  String getTheme(){
+    if (darkMode){
+      return "darkTheme";
+    } else {
+      return "lightTheme";
     }
   }
 }

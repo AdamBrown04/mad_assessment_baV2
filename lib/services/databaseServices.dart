@@ -1,4 +1,5 @@
 import 'package:mad_assessment_ba/models/gameHistory.dart';
+import 'package:mad_assessment_ba/models/playerInformation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -10,10 +11,10 @@ class Databaseservices {
   }
 
   static Future<void> createDatabase(Database db, int version) async{
-  String sql = "CREATE TABLE IF NOT EXISTS game_history (gameID INTEGER PRIMARY KEY, playerName TEXT, opponentName TEXT, playerPoints INTEGER, opponentPoints INTEGER, playerArmy TEXT, opponentArmy TEXT, dateTime TEXT, isPlayerWinner INTEGER)";
-  db.execute(sql);
+  String sqlGame = "CREATE TABLE IF NOT EXISTS game_history (gameID INTEGER PRIMARY KEY, playerName TEXT, opponentName TEXT, playerPoints INTEGER, opponentPoints INTEGER, playerArmy TEXT, opponentArmy TEXT, dateTime TEXT, isPlayerWinner INTEGER)";
+  db.execute(sqlGame);
   }
-
+//database operations for games
   static Future<void> insertGameHistory(Gamehistory gameHistory) async {
     final db = await _openDatabase();
     String sql = "INSERT INTO game_history (gameID, playerName, opponentName, playerPoints, opponentPoints, playerArmy, opponentArmy, dateTime, isPlayerWinner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -41,5 +42,3 @@ class Databaseservices {
     return db.query('game_history');
   }
 }
-
-
