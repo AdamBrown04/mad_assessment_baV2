@@ -12,22 +12,6 @@ class Gamepreviewscreen extends StatefulWidget {
 
 class _GamepreviewscreenState extends State<Gamepreviewscreen> {
   late Gamehistory gameData;
-  
-  @override
-  void initState(){
-    Gamehistory(
-    gameID: widget.gameHistoryID.toString(),
-    playerName: "Player 1",
-    opponentName: "Player 2",
-    playerPoints: 100,
-    opponentPoints: 80,
-    playerArmy: "Army A",
-    opponentArmy: "Army B",
-    dateTime: DateTime.now(),
-    isPlayerWinner: true,
-  );
-  super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

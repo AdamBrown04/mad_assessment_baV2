@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Gamehistory {
-  final String gameID;
+  final int gameID;
   final String playerName;
   final String opponentName;
   final int playerPoints;

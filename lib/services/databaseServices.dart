@@ -10,7 +10,7 @@ class Databaseservices {
   }
 
   static Future<void> createDatabase(Database db, int version) async{
-  String sql = "";
+  String sql = "CREATE TABLE IF NOT EXISTS game_history (gameID INTEGER PRIMARY KEY, playerName TEXT, opponentName TEXT, playerPoints INTEGER, opponentPoints INTEGER, playerArmy TEXT, opponentArmy TEXT, dateTime TEXT, isPlayerWinner INTEGER)";
   db.execute(sql);
   }
 
