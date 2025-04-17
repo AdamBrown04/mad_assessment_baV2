@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/models/playerInformation.dart';
 import 'package:mad_assessment_ba/widgets/gameHistoryScreen.dart';
+import 'package:mad_assessment_ba/widgets/profileScreen.dart';
+import 'package:mad_assessment_ba/widgets/statsPageScreen.dart';
 import 'package:mad_assessment_ba/widgets/themes/applicationThemes.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -82,8 +84,13 @@ class BAScorekeep extends StatelessWidget {
           // Data is available, use it to build the UI
           Playerinformation userDetails = snapshot.data!;
           return MaterialApp(
-            home: Gamehistoryscreen(),
-            theme: getThemeData(userDetails.getTheme()),
+            theme: getThemeData(userDetails.darkMode ? "darkTheme" : "lightTheme"),
+            initialRoute: '/widgets/gameHistoryScreen', // Set the initial route
+            routes: {
+              '/widgets/gameHistoryScreen': (context) => Gamehistoryscreen(),
+              '/widgets/statsPageScreen': (context) => Statspagescreen(),
+              '/widgets/profileScreen': (context) => Profilescreen(),
+            },
           );
         } else {
           // Handle the case where there's no data
