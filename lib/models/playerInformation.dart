@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 class Playerinformation {
   final String playerName;
-  final bool darkMode;
+  late final bool darkMode;
   final int totalGamesPlayed;
   final int totalGamesWon;
   final int totalGamesLost;

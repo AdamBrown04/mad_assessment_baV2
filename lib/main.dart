@@ -13,24 +13,36 @@ void main() {
 
 class BAScorekeep extends StatelessWidget {
   const BAScorekeep({super.key});
-  //File handling code is originally from https://docs.flutter.dev/cookbook/persistence/reading-writing-files, code has been modified when needed to fit personal use
-  Future<String> get _localPath async{
+
+  static final ValueNotifier<bool> isDarkMode = ValueNotifier(false);
+
+  Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
   }
 
-  Future<File> get _localFile async{
+  Future<File> get _localFile async {
     final path = await _localPath;
     return File('$path/playerInformation.txt');
   }
 
-  Future<File> writePlayerInformation(Playerinformation playerDetails) async{
+  Future<void> updateDarkModePreference(bool value) async {
     final file = await _localFile;
-    String playerInfo = "${playerDetails.playerName},${playerDetails.darkMode},${playerDetails.totalGamesPlayed}, ${playerDetails.totalGamesWon},${playerDetails.totalGamesLost},${playerDetails.totalGamesDrawn},${playerDetails.winRate},${playerDetails.currentWinSteak},${playerDetails.longestWinSteak}";
-    return file.writeAsString(playerInfo);
+    if (await file.exists()) {
+      final contents = await file.readAsString();
+      final playerInfo = contents.split(",");
+      playerInfo[1] = value.toString(); // Update darkMode value
+      await file.writeAsString(playerInfo.join(","));
+    } else {
+      // Create the file with default values and update darkMode
+      final defaultData = "Player,$isDarkMode,0,0,0,0,0.0,0,0"; // Default player data
+      final playerInfo = defaultData.split(",");
+      playerInfo[1] = value.toString(); // Update darkMode value
+      await file.writeAsString(playerInfo.join(","));
+    }
   }
 
-  Future<Playerinformation> readPlayerInformation() async{
+  Future<Playerinformation> readPlayerInformation() async {
     try {
       final file = await _localFile;
       String contents = await file.readAsString();
@@ -44,7 +56,7 @@ class BAScorekeep extends StatelessWidget {
         totalGamesDrawn: int.parse(playerInfo[5]),
         winRate: double.parse(playerInfo[6]),
         currentWinSteak: int.parse(playerInfo[7]),
-        longestWinSteak: int.parse(playerInfo[8])
+        longestWinSteak: int.parse(playerInfo[8]),
       );
     } catch (e) {
       return Playerinformation(
@@ -56,7 +68,7 @@ class BAScorekeep extends StatelessWidget {
         totalGamesDrawn: 0,
         winRate: 0.0,
         currentWinSteak: 0,
-        longestWinSteak: 0
+        longestWinSteak: 0,
       );
     }
   }
@@ -72,32 +84,33 @@ class BAScorekeep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Playerinformation>(
-      future: readPlayerInformation(), // Fetch the player information asynchronously
+      future: readPlayerInformation(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // Show a loading indicator while waiting for the data
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          // Handle errors
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (snapshot.hasData) {
-          // Data is available, use it to build the UI
           Playerinformation userDetails = snapshot.data!;
-          return MaterialApp(
-            theme: getThemeData(userDetails.darkMode ? "darkTheme" : "lightTheme"),
-            initialRoute: '/widgets/gameHistoryScreen', // Set the initial route
-            routes: {
-              '/widgets/gameHistoryScreen': (context) => Gamehistoryscreen(),
-              '/widgets/statsPageScreen': (context) => Statspagescreen(),
-              '/widgets/profileScreen': (context) => Profilescreen(),
+          isDarkMode.value = userDetails.darkMode; // Initialize isDarkMode
+          return ValueListenableBuilder<bool>(
+            valueListenable: isDarkMode,
+            builder: (context, isDark, child) {
+              return MaterialApp(
+                theme: getThemeData(isDark ? "darkTheme" : "lightTheme"),
+                initialRoute: '/widgets/gameHistoryScreen',
+                routes: {
+                  '/widgets/gameHistoryScreen': (context) => Gamehistoryscreen(),
+                  '/widgets/statsPageScreen': (context) => Statspagescreen(),
+                  '/widgets/profileScreen': (context) => Profilescreen(),
+                },
+              );
             },
           );
         } else {
-          // Handle the case where there's no data
-          return Center(child: Text('No data available'));
+          return const Center(child: Text('No data available'));
         }
       },
     );
   }
-  
 }
