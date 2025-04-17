@@ -59,13 +59,37 @@ class BAScorekeep extends StatelessWidget {
     }
   }
 
+  ThemeData getThemeData(String theme) {
+    if (theme == "darkTheme") {
+      return MyThemes().darkTheme;
+    } else {
+      return MyThemes().lightTheme;
+    }
+  }
+
   @override
-  Widget build(BuildContext context){
-    
-    return MaterialApp(
-      home: Gamehistoryscreen(),
-      
-      theme: MyThemes().,
+  Widget build(BuildContext context) {
+    return FutureBuilder<Playerinformation>(
+      future: readPlayerInformation(), // Fetch the player information asynchronously
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Show a loading indicator while waiting for the data
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          // Handle errors
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (snapshot.hasData) {
+          // Data is available, use it to build the UI
+          Playerinformation userDetails = snapshot.data!;
+          return MaterialApp(
+            home: Gamehistoryscreen(),
+            theme: getThemeData(userDetails.getTheme()),
+          );
+        } else {
+          // Handle the case where there's no data
+          return Center(child: Text('No data available'));
+        }
+      },
     );
   }
   
