@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mad_assessment_ba/navigation/bottomnavbar.dart';
 import 'package:mad_assessment_ba/services/databaseServices.dart';
 import 'package:mad_assessment_ba/widgets/gamePreviewScreen.dart';
 import 'package:mad_assessment_ba/widgets/newGameScreen.dart';
@@ -21,56 +22,57 @@ class _GamehistoryscreenState extends State<Gamehistoryscreen> {
     Profilescreen()
   ];
 
-  Future<void> displayAllGameRecords() async{
-    final List<Map<String, dynamic>> getGameHistory = await Databaseservices.getAllGameHistory();
+  Future<void> displayAllGameRecords() async {
+    final List<Map<String, dynamic>> getGameHistory =
+        await Databaseservices.getAllGameHistory();
     setState(() {
       gameHistoryList = getGameHistory;
     });
   }
 
-  void navigationBarTapped(int index){
+  void navigationBarTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-    if(index == 0){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Gamehistoryscreen()));
-    } else if(index == 1){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Statspagescreen()));
-    } else if(index == 2){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Profilescreen()));
+    if (index == 0) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => Gamehistoryscreen()));
+    } else if (index == 1) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Statspagescreen()));
+    } else if (index == 2) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Profilescreen()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Games"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Newgamescreen()));
+    return navbar(
+      currentIndex: _selectedIndex,
+      body: Scaffold(
+        appBar: AppBar(
+          title: Text("Games"),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Newgamescreen()));
+              },
+            )
+          ],
+        ),
+        body: SafeArea(
+            child: Center(
+          child: ListView.builder(
+            itemCount: gameHistoryList.length,
+            itemBuilder: (context, index) {
+              return Gamepreviewscreen(
+                  gameHistoryID: gameHistoryList[index]['gameID']);
             },
-          )
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: "Stats"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: navigationBarTapped,
-      ),
-      body: SafeArea(child: Center(
-        child: ListView.builder(
-          itemCount: gameHistoryList.length,
-          itemBuilder: (context, index) {
-            return Gamepreviewscreen(gameHistoryID: gameHistoryList[index]['gameID']);
-        },
-      ),)
+          ),
+        )),
       ),
     );
   }
