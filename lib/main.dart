@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:mad_assessment_ba/app.dart';
 import 'package:mad_assessment_ba/models/playerInformation.dart';
 import 'package:mad_assessment_ba/widgets/gameHistoryScreen.dart';
 import 'package:mad_assessment_ba/widgets/themes/applicationThemes.dart';
@@ -67,6 +68,8 @@ class BAScorekeep extends StatelessWidget {
     }
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Playerinformation>(
@@ -82,7 +85,7 @@ class BAScorekeep extends StatelessWidget {
           // Data is available, use it to build the UI
           Playerinformation userDetails = snapshot.data!;
           return MaterialApp(
-            home: Gamehistoryscreen(),
+            home: App(),
             theme: getThemeData(userDetails.getTheme()),
           );
         } else {
