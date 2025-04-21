@@ -3,8 +3,6 @@ import 'package:mad_assessment_ba/navigation/bottomnavbar.dart';
 import 'package:mad_assessment_ba/services/databaseServices.dart';
 import 'package:mad_assessment_ba/widgets/gamePreviewScreen.dart';
 import 'package:mad_assessment_ba/widgets/newGameScreen.dart';
-import 'package:mad_assessment_ba/widgets/profileScreen.dart';
-import 'package:mad_assessment_ba/widgets/statsPageScreen.dart';
 
 class Gamehistoryscreen extends StatefulWidget {
   const Gamehistoryscreen({super.key});
@@ -14,13 +12,8 @@ class Gamehistoryscreen extends StatefulWidget {
 }
 
 class _GamehistoryscreenState extends State<Gamehistoryscreen> {
-  int _selectedIndex = 0;
   List<Map<String, dynamic>> gameHistoryList = [];
-  static const List<Widget> _widgetOptions = <Widget>[
-    Gamehistoryscreen(),
-    Statspagescreen(),
-    Profilescreen()
-  ];
+  
 
   Future<void> displayAllGameRecords() async {
     final List<Map<String, dynamic>> getGameHistory =
@@ -30,26 +23,11 @@ class _GamehistoryscreenState extends State<Gamehistoryscreen> {
     });
   }
 
-  void navigationBarTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    if (index == 0) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => Gamehistoryscreen()));
-    } else if (index == 1) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Statspagescreen()));
-    } else if (index == 2) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Profilescreen()));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return navbar(
-      currentIndex: _selectedIndex,
+      currentIndex: 0,
       body: Scaffold(
         appBar: AppBar(
           title: Text("Games"),

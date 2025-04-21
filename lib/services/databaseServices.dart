@@ -1,5 +1,4 @@
 import 'package:mad_assessment_ba/models/gameHistory.dart';
-import 'package:mad_assessment_ba/models/playerInformation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 

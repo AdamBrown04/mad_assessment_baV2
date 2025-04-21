@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Playerinformation {
   final String playerName;
   late final bool darkMode;
