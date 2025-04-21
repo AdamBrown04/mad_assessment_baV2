@@ -25,7 +25,7 @@ class Databaseservices {
       gameHistory.opponentPoints,
       gameHistory.playerArmy,
       gameHistory.opponentArmy,
-      gameHistory.dateTime.toIso8601String(),
+      gameHistory.playedDay.toIso8601String(),
       gameHistory.isPlayerWinner ? 1 : 0
     ]);
   }

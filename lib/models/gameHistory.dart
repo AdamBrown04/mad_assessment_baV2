@@ -8,7 +8,7 @@ class Gamehistory {
   final int opponentPoints;
   final String playerArmy;
   final String opponentArmy;
-  final DateTime dateTime;
+  final DateTime playedDay;
   bool isPlayerWinner;
 
   final formattedDate = DateFormat.yMd();
@@ -21,12 +21,12 @@ class Gamehistory {
     required this.opponentPoints,
     required this.playerArmy,
     required this.opponentArmy,
-    required this.dateTime,
+    required this.playedDay,
     required this.isPlayerWinner,
   });
 
   String get getFormattedDate {
-    return formattedDate.format(dateTime);
+    return formattedDate.format(playedDay);
   }
 
   String outputWinner(){

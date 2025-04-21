@@ -8,15 +8,15 @@ class Newgamescreen extends StatefulWidget {
 }
 
 class _NewgamescreenState extends State<Newgamescreen> {
+  String playerName = "Player";
+  String opponentName = "Opponent";
+  int playerPoints = 0;
+  int opponentPoints = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: "Stats"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
+      appBar: AppBar(
+        title: Text("$playerName vs $opponentName | $playerPoints vs $opponentPoints"), titleTextStyle: TextStyle(fontSize: 18),
       ),
     );
   }
