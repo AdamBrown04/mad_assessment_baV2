@@ -13,6 +13,18 @@ class MyThemes{
       backgroundColor: Colors.grey[200],
       selectedItemColor: Colors.lightBlue,
     ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Colors.black),
+        iconColor: MaterialStateProperty.all(Colors.black),
+      ),
+      ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Colors.black),
+        iconColor: MaterialStateProperty.all(Colors.black),
+      ),
+    ),
   );
 
   ThemeData darkTheme = ThemeData(
@@ -27,5 +39,18 @@ class MyThemes{
       backgroundColor: Colors.grey[800],
       selectedItemColor: Colors.lightBlue,
     ),
-  );
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Colors.white),
+        iconColor: MaterialStateProperty.all(Colors.white),
+      ),
+      ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Colors.white),
+        iconColor: MaterialStateProperty.all(Colors.white),
+        backgroundColor: MaterialStateProperty.all(const Color.fromARGB(119, 55, 55, 55)),
+      ),
+    ),
+    );
 }

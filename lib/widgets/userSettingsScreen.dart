@@ -21,7 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Dark Mode"),
+                Text("Dark Mode"),
                 ValueListenableBuilder<bool>(
                   valueListenable: BAScorekeep.isDarkMode,
                   builder: (context, isDark, child) {
