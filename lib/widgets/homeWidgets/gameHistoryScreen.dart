@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/navigation/bottomnavbar.dart';
 import 'package:mad_assessment_ba/services/databaseServices.dart';
 import 'package:mad_assessment_ba/widgets/gamePreviewScreen.dart';
-import 'package:mad_assessment_ba/widgets/newGameScreen.dart';
+import 'package:mad_assessment_ba/widgets/gameSetupWidgets/newGameScreen.dart';
 
 class Gamehistoryscreen extends StatefulWidget {
   const Gamehistoryscreen({super.key});
@@ -30,7 +30,7 @@ class _GamehistoryscreenState extends State<Gamehistoryscreen> {
       currentIndex: 0,
       body: Scaffold(
         appBar: AppBar(
-          title: Text("Games"),
+          title: Text("Games", style: TextStyle(fontWeight: FontWeight.bold)),
           actions: [
             IconButton(
               icon: Icon(Icons.add),

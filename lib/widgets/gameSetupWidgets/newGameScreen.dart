@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mad_assessment_ba/widgets/gameSetupWidgets/selectGameTypeScreen.dart';
 
 class Newgamescreen extends StatefulWidget {
   const Newgamescreen({super.key});
@@ -13,6 +14,7 @@ class _NewgamescreenState extends State<Newgamescreen> {
   String gameDescription = "Game Description";
   String gameType = "Game Type";
   String mission = "Mission";
+  String deploymentType = "Deployment Type";
   int playerPoints = 0;
   int opponentPoints = 0;
   int playerScore = 0;
@@ -37,7 +39,7 @@ class _NewgamescreenState extends State<Newgamescreen> {
       appBar: AppBar(
         title: Text(
             "$playerName vs $opponentName | $playerScore vs $opponentScore"),
-        titleTextStyle: TextStyle(fontSize: 18),
+        titleTextStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       body: Center(
         child: Column(
@@ -120,12 +122,16 @@ class _NewgamescreenState extends State<Newgamescreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => Selectgametypescreen(),
+                        ));
+                      },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(gameType, style: TextStyle(fontSize: 18)),
-                          Text(mission, style: TextStyle(fontSize: 18)),
+                          Text("$mission | $deploymentType", style: TextStyle(fontSize: 18)),
                           Text(
                             "Points: $playerPoints vs $opponentPoints",
                             style: TextStyle(fontSize: 15),

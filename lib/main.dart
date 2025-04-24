@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/models/playerInformation.dart';
-import 'package:mad_assessment_ba/widgets/gameHistoryScreen.dart';
-import 'package:mad_assessment_ba/widgets/profileScreen.dart';
-import 'package:mad_assessment_ba/widgets/statsPageScreen.dart';
+import 'package:mad_assessment_ba/widgets/homeWidgets/gameHistoryScreen.dart';
+import 'package:mad_assessment_ba/widgets/homeWidgets/profileScreen.dart';
+import 'package:mad_assessment_ba/widgets/homeWidgets/statsPageScreen.dart';
 import 'package:mad_assessment_ba/widgets/themes/applicationThemes.dart';
 import 'package:path_provider/path_provider.dart';
 
