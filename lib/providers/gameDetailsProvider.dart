@@ -5,6 +5,9 @@ class GameDetailsProvider extends ChangeNotifier {
   String opponentName = "Opponent";
   String? playerArmy;
   String? opponentArmy;
+  String? gameType;
+  String? mission;
+  String? deploymentType;
   int? playerPoints;
   int? opponentPoints;
 
@@ -15,6 +18,9 @@ class GameDetailsProvider extends ChangeNotifier {
     required String? opponentArmy,
     required int playerPoints,
     required int opponentPoints,
+    required String? gameType,
+    required String? mission,
+    required String? deploymentType,
   }) {
     this.playerName = playerName;
     this.opponentName = opponentName;
@@ -22,6 +28,9 @@ class GameDetailsProvider extends ChangeNotifier {
     this.opponentArmy = opponentArmy;
     this.playerPoints = playerPoints;
     this.opponentPoints = opponentPoints;
+    this.gameType = gameType;
+    this.mission = mission;
+    this.deploymentType = deploymentType;
 
     notifyListeners(); // Notify listeners of the changes
   }

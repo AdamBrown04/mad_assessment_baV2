@@ -10,6 +10,7 @@ class Setupplayerdetailsforgamescreen extends StatefulWidget {
       _SetupplayerdetailsforgamescreenState();
 }
 
+
 class _SetupplayerdetailsforgamescreenState
     extends State<Setupplayerdetailsforgamescreen> {
   bool isIdentical = true;
@@ -19,6 +20,9 @@ class _SetupplayerdetailsforgamescreenState
   String? opponentName;
   String? playerArmy;
   String? opponentArmy;
+  String? mission;
+  String? gameType;
+  String? deploymentType;
 
   List<String> availableArmies = [
     "British Army",
@@ -49,6 +53,26 @@ class _SetupplayerdetailsforgamescreenState
     opponentPointsController.dispose();
     super.dispose();
   }
+
+@override
+void didChangeDependencies() {
+  super.didChangeDependencies();
+
+  // Retrieve arguments from ModalRoute
+  final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+  if (args != null) {
+    setState(() {
+      gameType = args['gameType'];
+      mission = args['mission'];
+      deploymentType = args['deploymentType'];
+    });
+  }
+}
+
+
+
+
 
   void validateUserInput() {
     if (playerPoints == 0 ||
@@ -155,6 +179,10 @@ class _SetupplayerdetailsforgamescreenState
       opponentArmy: opponentArmy,
       playerPoints: playerPoints ?? 0,
       opponentPoints: opponentPoints ?? 0,
+      mission: mission,
+      gameType: gameType,
+      deploymentType: deploymentType,
+
     );
       Navigator.pop(context);
     }

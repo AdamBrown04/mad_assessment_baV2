@@ -45,6 +45,9 @@ class _NewgamescreenState extends State<Newgamescreen> {
     opponentArmy = GameDetais.opponentArmy;
     playerPoints = GameDetais.playerPoints ?? 0;
     opponentPoints = GameDetais.opponentPoints ?? 0;
+    gameType = GameDetais.gameType ?? "Game Type";
+    mission = GameDetais.mission ?? "Mission";
+    deploymentType = GameDetais.deploymentType ?? "Deployment Type";
     return Scaffold(
       appBar: AppBar(
         title: Text(

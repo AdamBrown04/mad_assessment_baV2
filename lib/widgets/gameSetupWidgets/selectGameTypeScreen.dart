@@ -52,6 +52,13 @@ class _SelectgametypescreenState extends State<Selectgametypescreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const Setupplayerdetailsforgamescreen(),
+                      settings: RouteSettings(
+                        arguments: {
+                          'gameType': "Custom",
+                          'mission': "Custom Mission",
+                          'deploymentType': "Custom Deployment",
+                        },
+                      ),
                     ),
                   );
                 },
