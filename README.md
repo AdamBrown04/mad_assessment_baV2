@@ -1,16 +1,6 @@
 # mad_assessment_ba
 
-A new Flutter project.
+This moible application is for a university module
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The application is based off the Tabletop Battles application, which is used to keep a track of scores in games of Warhammer as well as keep a history of the games you have played. 
+The difference for my application is that it instead is for the game Bolt Action 3rd edition which is published by Warlord Games.
