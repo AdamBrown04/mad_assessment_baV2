@@ -4,10 +4,16 @@ class Gamehistory {
   final int gameID;
   final String playerName;
   final String opponentName;
-  final int playerPoints;
-  final int opponentPoints;
   final String playerArmy;
   final String opponentArmy;
+  final String gameDescription;
+  final String gameType;
+  final String mission;
+  final String deploymentType;
+  final int playerPoints;
+  final int opponentPoints;
+  final int playerScore;
+  final int opponentScore;
   final DateTime playedDay;
   bool isPlayerWinner;
 
@@ -23,6 +29,12 @@ class Gamehistory {
     required this.opponentArmy,
     required this.playedDay,
     required this.isPlayerWinner,
+    required this.deploymentType,
+    required this.gameDescription,
+    required this.gameType,
+    required this.mission,
+    required this.playerScore,
+    required this.opponentScore,
   });
 
   String get getFormattedDate {
