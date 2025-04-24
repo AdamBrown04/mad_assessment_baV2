@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mad_assessment_ba/providers/gameDetailsProvider.dart';
 import 'package:mad_assessment_ba/widgets/gameSetupWidgets/selectGameTypeScreen.dart';
+import 'package:provider/provider.dart';
 
 class Newgamescreen extends StatefulWidget {
   const Newgamescreen({super.key});
-
   @override
   State<Newgamescreen> createState() => _NewgamescreenState();
 }
@@ -15,6 +16,8 @@ class _NewgamescreenState extends State<Newgamescreen> {
   String gameType = "Game Type";
   String mission = "Mission";
   String deploymentType = "Deployment Type";
+  String? playerArmy;
+  String? opponentArmy;
   int playerPoints = 0;
   int opponentPoints = 0;
   int playerScore = 0;
@@ -35,6 +38,13 @@ class _NewgamescreenState extends State<Newgamescreen> {
 
   @override
   Widget build(BuildContext context) {
+    final GameDetais = Provider.of<GameDetailsProvider>(context);
+    playerName = GameDetais.playerName;
+    opponentName = GameDetais.opponentName;
+    playerArmy = GameDetais.playerArmy;
+    opponentArmy = GameDetais.opponentArmy;
+    playerPoints = GameDetais.playerPoints ?? 0;
+    opponentPoints = GameDetais.opponentPoints ?? 0;
     return Scaffold(
       appBar: AppBar(
         title: Text(

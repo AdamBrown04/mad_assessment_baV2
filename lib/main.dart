@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/models/playerInformation.dart';
+import 'package:mad_assessment_ba/providers/gameDetailsProvider.dart';
 import 'package:mad_assessment_ba/widgets/homeWidgets/gameHistoryScreen.dart';
 import 'package:mad_assessment_ba/widgets/homeWidgets/profileScreen.dart';
 import 'package:mad_assessment_ba/widgets/homeWidgets/statsPageScreen.dart';
 import 'package:mad_assessment_ba/widgets/themes/applicationThemes.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const BAScorekeep());
@@ -96,14 +98,17 @@ class BAScorekeep extends StatelessWidget {
           return ValueListenableBuilder<bool>(
             valueListenable: isDarkMode,
             builder: (context, isDark, child) {
-              return MaterialApp(
-                theme: getThemeData(isDark ? "darkTheme" : "lightTheme"),
-                initialRoute: '/widgets/gameHistoryScreen',
-                routes: {
-                  '/widgets/gameHistoryScreen': (context) => Gamehistoryscreen(),
-                  '/widgets/statsPageScreen': (context) => Statspagescreen(),
-                  '/widgets/profileScreen': (context) => Profilescreen(),
-                },
+              return ChangeNotifierProvider(
+                create: (context) => GameDetailsProvider(),
+                child: MaterialApp(
+                  theme: getThemeData(isDark ? "darkTheme" : "lightTheme"),
+                  initialRoute: '/widgets/gameHistoryScreen',
+                  routes: {
+                    '/widgets/gameHistoryScreen': (context) => Gamehistoryscreen(),
+                    '/widgets/statsPageScreen': (context) => Statspagescreen(),
+                    '/widgets/profileScreen': (context) => Profilescreen(),
+                  },
+                ),
               );
             },
           );

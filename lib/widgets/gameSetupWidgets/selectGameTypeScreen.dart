@@ -47,6 +47,7 @@ class _SelectgametypescreenState extends State<Selectgametypescreen> {
                 title: Text("Custom Missions"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
