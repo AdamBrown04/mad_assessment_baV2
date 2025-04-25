@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyThemes{
+class MyThemes {
   ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     brightness: Brightness.light,
@@ -13,12 +13,12 @@ class MyThemes{
       backgroundColor: Colors.grey[200],
       selectedItemColor: Colors.lightBlue,
     ),
-        outlinedButtonTheme: OutlinedButtonThemeData(
+    outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all(Colors.black),
         iconColor: MaterialStateProperty.all(Colors.black),
       ),
-      ),
+    ),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -44,13 +44,14 @@ class MyThemes{
         foregroundColor: MaterialStateProperty.all(Colors.white),
         iconColor: MaterialStateProperty.all(Colors.white),
       ),
-      ),
+    ),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all(Colors.white),
         iconColor: MaterialStateProperty.all(Colors.white),
-        backgroundColor: MaterialStateProperty.all(const Color.fromARGB(119, 55, 55, 55)),
+        backgroundColor:
+            MaterialStateProperty.all(const Color.fromARGB(119, 55, 55, 55)),
       ),
     ),
-    );
+  );
 }

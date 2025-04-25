@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mad_assessment_ba/widgets/gameSetupWidgets/narrativeScenarioScreen.dart';
 import 'package:mad_assessment_ba/widgets/gameSetupWidgets/setupPlayerDetailsForGameScreen.dart';
 
 class Selectgametypescreen extends StatefulWidget {
@@ -20,25 +21,32 @@ class _SelectgametypescreenState extends State<Selectgametypescreen> {
           child: Column(
             children: [
               ListTile(
-                title: Text("Random Mission"),
+                title: Text("Battle Scenario"),
                 subtitle: Text(
-                    "Randomised missions that are found within the Bolt Action 3rd edition rulebook"),
+                    "Randomised Scenarios that are found within the Bolt Action 3rd edition rulebook"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {},
               ),
               Divider(height: 1, color: Colors.grey),
               ListTile(
-                title: Text("Narrative Missions"),
+                title: Text("Narrative Scenario"),
                 subtitle: Text(
-                    "Narrative missions that are found within the Bolt Action 3rd edition rulebook"),
+                    "Narrative Scenarios that are found within the Bolt Action 3rd edition rulebook"),
                 trailing: Icon(Icons.arrow_forward),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const Narrativescenarioscreen()));
+                },
               ),
               Divider(height: 1, color: Colors.grey),
               ListTile(
-                title: Text("Compendium Missions"),
+                title: Text("Compendium Scenario"),
                 subtitle: Text(
-                    "Missions that are found within the Bolt Action 3rd edtion compendium book"),
+                    "Scenarios that are found within the Bolt Action 3rd edtion compendium book"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {},
               ),
@@ -51,7 +59,8 @@ class _SelectgametypescreenState extends State<Selectgametypescreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Setupplayerdetailsforgamescreen(),
+                      builder: (context) =>
+                          const Setupplayerdetailsforgamescreen(),
                       settings: RouteSettings(
                         arguments: {
                           'gameType': "Custom",

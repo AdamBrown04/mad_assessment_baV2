@@ -25,15 +25,16 @@ class _NewgamescreenState extends State<Newgamescreen> {
   DateTime playedDay = DateTime.now();
   bool remindMeToTakePictures = false;
 
-  void _displayDatePicker() async{
-    final playedDay = await showDatePicker(context: context,
-     firstDate: DateTime(DateTime.now().year -1),
-      lastDate: DateTime(DateTime.now().year + 10));
-      setState(() {
-        if (playedDay != null) {
-          this.playedDay = playedDay;
-        }
-      });
+  void _displayDatePicker() async {
+    final playedDay = await showDatePicker(
+        context: context,
+        firstDate: DateTime(DateTime.now().year - 1),
+        lastDate: DateTime(DateTime.now().year + 10));
+    setState(() {
+      if (playedDay != null) {
+        this.playedDay = playedDay;
+      }
+    });
   }
 
   @override
@@ -46,7 +47,7 @@ class _NewgamescreenState extends State<Newgamescreen> {
     playerPoints = GameDetais.playerPoints ?? 0;
     opponentPoints = GameDetais.opponentPoints ?? 0;
     gameType = GameDetais.gameType ?? "Game Type";
-    mission = GameDetais.mission ?? "Mission";
+    mission = GameDetais.mission ?? "Scenario";
     deploymentType = GameDetais.deploymentType ?? "Deployment Type";
     return Scaffold(
       appBar: AppBar(
@@ -65,38 +66,39 @@ class _NewgamescreenState extends State<Newgamescreen> {
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 )),
             Padding(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  Align(alignment: Alignment.centerLeft,
-                  child: Padding(padding: EdgeInsets.only(bottom: 10),
-                  child: Text("Game Date", 
-                      style: TextStyle(
-                          fontSize: 15, fontWeight: FontWeight.bold)),)
-                  ),
-                  SizedBox(
-                height: MediaQuery.of(context).size.height * 0.075,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                  ),
-                  onPressed: _displayDatePicker,
-                  child: Row(
-                    children: [
-                      Icon(Icons.calendar_month, size: 25),
-                      Text(
-                        " ${playedDay.day}/${playedDay.month}/${playedDay.year}",
-                        style: TextStyle(fontSize: 15),
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Text("Game Date",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold)),
+                        )),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.075,
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                        ),
+                        onPressed: _displayDatePicker,
+                        child: Row(
+                          children: [
+                            Icon(Icons.calendar_month, size: 25),
+                            Text(
+                              " ${playedDay.day}/${playedDay.month}/${playedDay.year}",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-                ],
-              )
-            ),
+                    ),
+                  ],
+                )),
             Padding(
               padding: EdgeInsets.all(10),
               child: SizedBox(
@@ -120,11 +122,13 @@ class _NewgamescreenState extends State<Newgamescreen> {
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Padding(padding: EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      "Select Game Type",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        "Select Game Type",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -136,15 +140,18 @@ class _NewgamescreenState extends State<Newgamescreen> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => Selectgametypescreen(),
-                        ));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Selectgametypescreen(),
+                            ));
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(gameType, style: TextStyle(fontSize: 18)),
-                          Text("$mission | $deploymentType", style: TextStyle(fontSize: 18)),
+                          Text("$mission | $deploymentType",
+                              style: TextStyle(fontSize: 18)),
                           Text(
                             "Points: $playerPoints vs $opponentPoints",
                             style: TextStyle(fontSize: 15),
@@ -161,12 +168,13 @@ class _NewgamescreenState extends State<Newgamescreen> {
               child: Column(
                 children: [
                   Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(padding: EdgeInsets.only(bottom: 10),
-                    child: Text("Game Options",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold)),)
-                  ),
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: Text("Game Options",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold)),
+                      )),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: TextButton(

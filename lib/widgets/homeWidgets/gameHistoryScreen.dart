@@ -13,7 +13,6 @@ class Gamehistoryscreen extends StatefulWidget {
 
 class _GamehistoryscreenState extends State<Gamehistoryscreen> {
   List<Map<String, dynamic>> gameHistoryList = [];
-  
 
   Future<void> displayAllGameRecords() async {
     final List<Map<String, dynamic>> getGameHistory =
@@ -22,7 +21,6 @@ class _GamehistoryscreenState extends State<Gamehistoryscreen> {
       gameHistoryList = getGameHistory;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

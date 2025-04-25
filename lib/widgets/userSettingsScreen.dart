@@ -13,7 +13,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings", style: TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text(
+          "Settings",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -29,7 +32,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       value: isDark,
                       onChanged: (value) {
                         BAScorekeep.isDarkMode.value = value; // Update theme
-                        BAScorekeep().updateDarkModePreference(value); // Save to file
+                        BAScorekeep()
+                            .updateDarkModePreference(value); // Save to file
                       },
                     );
                   },

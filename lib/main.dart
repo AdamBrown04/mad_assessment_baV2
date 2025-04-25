@@ -37,7 +37,8 @@ class BAScorekeep extends StatelessWidget {
       await file.writeAsString(playerInfo.join(","));
     } else {
       // Create the file with default values and update darkMode
-      final defaultData = "Player,$isDarkMode,0,0,0,0,0.0,0,0"; // Default player data
+      final defaultData =
+          "Player,$isDarkMode,0,0,0,0,0.0,0,0"; // Default player data
       final playerInfo = defaultData.split(",");
       playerInfo[1] = value.toString(); // Update darkMode value
       await file.writeAsString(playerInfo.join(","));
@@ -104,7 +105,8 @@ class BAScorekeep extends StatelessWidget {
                   theme: getThemeData(isDark ? "darkTheme" : "lightTheme"),
                   initialRoute: '/widgets/gameHistoryScreen',
                   routes: {
-                    '/widgets/gameHistoryScreen': (context) => Gamehistoryscreen(),
+                    '/widgets/gameHistoryScreen': (context) =>
+                        Gamehistoryscreen(),
                     '/widgets/statsPageScreen': (context) => Statspagescreen(),
                     '/widgets/profileScreen': (context) => Profilescreen(),
                   },

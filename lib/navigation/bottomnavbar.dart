@@ -10,10 +10,10 @@ class navbar extends StatefulWidget {
 }
 
 class _navbarState extends State<navbar> {
-  void _onItemTapped(int index){
-    if(index == widget.currentIndex) return;
+  void _onItemTapped(int index) {
+    if (index == widget.currentIndex) return;
 
-    switch(index){
+    switch (index) {
       case 0:
         Navigator.pushReplacementNamed(context, '/widgets/gameHistoryScreen');
         break;

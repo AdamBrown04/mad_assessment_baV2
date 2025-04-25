@@ -41,11 +41,10 @@ class Gamehistory {
     return formattedDate.format(playedDay);
   }
 
-  String outputWinner(){
-    if(isPlayerWinner){
+  String outputWinner() {
+    if (isPlayerWinner) {
       return "Victory";
-    }
-    else{
+    } else {
       return "Loss";
     }
   }

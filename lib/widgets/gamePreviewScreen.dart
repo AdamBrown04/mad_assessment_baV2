@@ -16,37 +16,37 @@ class _GamepreviewscreenState extends State<Gamepreviewscreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Card(
-            child: Row(
-              children: [
-                Column(
-                  children: [
-                    Text(gameData.playerName),
-                    Text(gameData.playerArmy),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(gameData.getFormattedDate),
-                    Text("${gameData.playerPoints} vs ${gameData.opponentPoints}"),
-                    Text(gameData.outputWinner())
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(gameData.opponentName),
-                    Text(gameData.opponentArmy),
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
-      )
-    );
+        padding: EdgeInsets.all(5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Card(
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Text(gameData.playerName),
+                      Text(gameData.playerArmy),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(gameData.getFormattedDate),
+                      Text(
+                          "${gameData.playerPoints} vs ${gameData.opponentPoints}"),
+                      Text(gameData.outputWinner())
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(gameData.opponentName),
+                      Text(gameData.opponentArmy),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }

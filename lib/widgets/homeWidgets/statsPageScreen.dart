@@ -10,7 +10,8 @@ class Statspagescreen extends StatelessWidget {
       currentIndex: 1,
       body: Scaffold(
         appBar: AppBar(
-          title: const Text("Statistics", style: TextStyle(fontWeight: FontWeight.bold)),
+          title: const Text("Statistics",
+              style: TextStyle(fontWeight: FontWeight.bold)),
         ),
       ),
     );

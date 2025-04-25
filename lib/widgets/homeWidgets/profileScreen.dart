@@ -11,7 +11,10 @@ class Profilescreen extends StatelessWidget {
         currentIndex: 2,
         body: Scaffold(
           appBar: AppBar(
-            title: const Text("Profile", style: TextStyle(fontWeight: FontWeight.bold),),
+            title: const Text(
+              "Profile",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             actions: [
               IconButton(
                 icon: const Icon(Icons.settings),

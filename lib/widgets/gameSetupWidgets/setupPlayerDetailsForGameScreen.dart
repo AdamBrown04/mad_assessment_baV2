@@ -10,7 +10,6 @@ class Setupplayerdetailsforgamescreen extends StatefulWidget {
       _SetupplayerdetailsforgamescreenState();
 }
 
-
 class _SetupplayerdetailsforgamescreenState
     extends State<Setupplayerdetailsforgamescreen> {
   bool isIdentical = true;
@@ -54,25 +53,22 @@ class _SetupplayerdetailsforgamescreenState
     super.dispose();
   }
 
-@override
-void didChangeDependencies() {
-  super.didChangeDependencies();
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
-  // Retrieve arguments from ModalRoute
-  final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    // Retrieve arguments from ModalRoute
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
-  if (args != null) {
-    setState(() {
-      gameType = args['gameType'];
-      mission = args['mission'];
-      deploymentType = args['deploymentType'];
-    });
+    if (args != null) {
+      setState(() {
+        gameType = args['gameType'];
+        mission = args['mission'];
+        deploymentType = args['deploymentType'];
+      });
+    }
   }
-}
-
-
-
-
 
   void validateUserInput() {
     if (playerPoints == 0 ||
@@ -117,20 +113,22 @@ void didChangeDependencies() {
       return;
     }
     if (opponentName == null || opponentName == "") {
-      showDialog(context: context, builder: (BuildContext context){
-        return AlertDialog(
-          title: Text("Error"),
-          content: Text("Please enter your opponent's name"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("OK"),
-            ),
-          ],
-        );
-      });
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text("Please enter your opponent's name"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("OK"),
+                ),
+              ],
+            );
+          });
       return;
     }
     if (playerArmy == null || playerArmy == "") {
@@ -171,19 +169,19 @@ void didChangeDependencies() {
           });
       return;
     } else {
-          // Update the shared data using the provider
-    Provider.of<GameDetailsProvider>(context, listen: false).updateGameDetails(
-      playerName: playerName ?? "Player",
-      opponentName: opponentName ?? "Opponent",
-      playerArmy: playerArmy,
-      opponentArmy: opponentArmy,
-      playerPoints: playerPoints ?? 0,
-      opponentPoints: opponentPoints ?? 0,
-      mission: mission,
-      gameType: gameType,
-      deploymentType: deploymentType,
-
-    );
+      // Update the shared data using the provider
+      Provider.of<GameDetailsProvider>(context, listen: false)
+          .updateGameDetails(
+        playerName: playerName ?? "Player",
+        opponentName: opponentName ?? "Opponent",
+        playerArmy: playerArmy,
+        opponentArmy: opponentArmy,
+        playerPoints: playerPoints ?? 0,
+        opponentPoints: opponentPoints ?? 0,
+        mission: mission,
+        gameType: gameType,
+        deploymentType: deploymentType,
+      );
       Navigator.pop(context);
     }
   }
