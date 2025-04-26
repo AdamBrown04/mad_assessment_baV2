@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/widgets/gameSetupWidgets/setupPlayerDetailsForGameScreen.dart';
 
@@ -23,8 +25,57 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
         child: Column(
           children: [
             ListTile(
+              title: Text("Random"),
+              subtitle: Text("Select a random scenario"),
+              trailing: Icon(Icons.shuffle),
+              onTap: () {
+                Navigator.pop(context);
+                int randomMission = Random().nextInt(5) + 1;
+                String? mission;
+                String? deploymentType;
+                switch (randomMission) {
+                  case 1:
+                    mission = "Envelopment";
+                    deploymentType = "Long Edges";
+                    break;
+                  case 2:
+                    mission = "Manhunt";
+                    deploymentType = "Long Edges";
+                    break;
+                  case 3:
+                    mission = "Point Defence";
+                    deploymentType = "Long Edges";
+                    break;
+                  case 4:
+                    mission = "Land Grab";
+                    deploymentType = "Quarters";
+                    break;
+                  case 5:
+                    mission = "Surrounded!";
+                    deploymentType = "Quarters";
+                    break;
+                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const Setupplayerdetailsforgamescreen(),
+                    settings: RouteSettings(
+                      arguments: {
+                        'gameType': "Narrative",
+                        'mission': mission,
+                        'deploymentType': deploymentType,
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+            Divider(height: 1, color: Colors.grey),
+            ListTile(
               title: Text("Envelopment"),
-              subtitle: Text(""),
+              subtitle: Text("The attacker must try to move their units into the defender's deployment zone or off their table edge"),
+              trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -46,7 +97,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
             Divider(height: 1, color: Colors.grey),
             ListTile(
               title: Text("Manhunt"),
-              subtitle: Text(""),
+              subtitle: Text("Capture the defender's highest-ranking offficer"),
+              trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -68,7 +120,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
             Divider(height: 1, color: Colors.grey),
             ListTile(
               title: Text("Point Defence"),
-              subtitle: Text(""),
+              subtitle: Text("The attacker must try to capture three objectives, the defender must try to stop them"),
+              trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -90,7 +143,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
             Divider(height: 1, color: Colors.grey),
             ListTile(
               title: Text("Land Grab"),
-              subtitle: Text(""),
+              subtitle: Text("Attempt to sieze the most table quarters while also trying to destroy your opponent's units"),
+              trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -112,7 +166,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
             Divider(height: 1, color: Colors.grey),
             ListTile(
               title: Text("Surrounded!"),
-              subtitle: Text(""),
+              subtitle: Text("Attempt to destroy the enemy whilst preserving your own"),
+              trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
