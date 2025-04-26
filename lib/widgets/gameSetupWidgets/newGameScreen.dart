@@ -248,7 +248,9 @@ class _NewgamescreenState extends State<Newgamescreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   child: Text(
                     "Delete Game",
                     style: TextStyle(fontSize: 20, color: Colors.red),

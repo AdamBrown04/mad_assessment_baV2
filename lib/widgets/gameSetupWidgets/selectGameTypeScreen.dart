@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mad_assessment_ba/widgets/gameSetupWidgets/battleScenarioMissionScreen.dart';
 import 'package:mad_assessment_ba/widgets/gameSetupWidgets/narrativeScenarioScreen.dart';
 import 'package:mad_assessment_ba/widgets/gameSetupWidgets/setupPlayerDetailsForGameScreen.dart';
 
@@ -25,7 +26,14 @@ class _SelectgametypescreenState extends State<Selectgametypescreen> {
                 subtitle: Text(
                     "Randomised Scenarios that are found within the Bolt Action 3rd edition rulebook"),
                 trailing: Icon(Icons.arrow_forward),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const Battlescenariomissionscreen()));
+                },
               ),
               Divider(height: 1, color: Colors.grey),
               ListTile(
