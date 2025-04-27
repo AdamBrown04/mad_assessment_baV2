@@ -38,6 +38,26 @@ class _NewgamescreenState extends State<Newgamescreen> {
   }
 
   @override
+  void dispose() {
+    playerName = "Player";
+    opponentName = "Opponent";
+    gameDescription = "Game Description";
+    gameType = "Game Type";
+    mission = "Mission";
+    deploymentType = "Deployment Type";
+    playerArmy = null;
+    opponentArmy = null;
+    playerPoints = 0;
+    opponentPoints = 0;
+    playerScore = 0;
+    opponentScore = 0;
+    playedDay = DateTime.now();
+    remindMeToTakePictures = false;
+    GameDetailsProvider().resetGameDetails();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final GameDetais = Provider.of<GameDetailsProvider>(context);
     playerName = GameDetais.playerName;
@@ -250,6 +270,8 @@ class _NewgamescreenState extends State<Newgamescreen> {
                   ),
                   onPressed: () {
                     Navigator.pop(context);
+                    Provider.of<GameDetailsProvider>(context, listen: false)
+                        .resetGameDetails();
                   },
                   child: Text(
                     "Delete Game",

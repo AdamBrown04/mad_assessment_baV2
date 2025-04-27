@@ -34,4 +34,18 @@ class GameDetailsProvider extends ChangeNotifier {
 
     notifyListeners(); // Notify listeners of the changes
   }
+
+  void resetGameDetails() {
+    playerName = "Player";
+    opponentName = "Opponent";
+    playerArmy = null;
+    opponentArmy = null;
+    gameType = null;
+    mission = null;
+    deploymentType = null;
+    playerPoints = null;
+    opponentPoints = null;
+
+    notifyListeners(); // Notify listeners of the changes
+  }
 }
