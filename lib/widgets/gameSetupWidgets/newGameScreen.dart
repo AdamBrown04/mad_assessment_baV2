@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/providers/gameDetailsProvider.dart';
+import 'package:mad_assessment_ba/widgets/currentGameScreen.dart';
 import 'package:mad_assessment_ba/widgets/gameSetupWidgets/selectGameTypeScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -250,7 +251,26 @@ class _NewgamescreenState extends State<Newgamescreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => Currentgamescreen(
+                        playerName: playerName,
+                        opponentName: opponentName,
+                        gameDescription: gameDescription,
+                        gameType: gameType,
+                        mission: mission,
+                        deploymentType: deploymentType,
+                        playerArmy: playerArmy,
+                        opponentArmy: opponentArmy,
+                        playerPoints: playerPoints,
+                        opponentPoints: opponentPoints,
+                        playedDay: playedDay,
+                        remindMeToTakePictures:
+                            remindMeToTakePictures, 
+                      ),
+                    ));
+                  },
                   child: Text(
                     "Continue",
                     style: TextStyle(fontSize: 20),
