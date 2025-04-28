@@ -12,12 +12,12 @@ class Gamehistory {
   final String deploymentType;
   final int playerPoints;
   final int opponentPoints;
-  final int playerScore;
-  final int opponentScore;
+  int playerScore;
+  int opponentScore;
   final DateTime playedDay;
   bool isPlayerWinner;
 
-  final formattedDate = DateFormat.yMd();
+  final formattedDate = DateFormat("dd/MM/yyyy");
 
   Gamehistory({
     required this.gameID,
@@ -44,8 +44,30 @@ class Gamehistory {
   String outputWinner() {
     if (isPlayerWinner) {
       return "Victory";
-    } else {
+    }
+    else if (playerScore == opponentScore) {
+      return "Draw";
+    }
+    else {
       return "Loss";
+    }
+  }
+
+  void findIfPlayerWon() {
+    if (playerScore > opponentScore) {
+      isPlayerWinner = true;
+    } else if (playerScore < opponentScore) {
+      isPlayerWinner = false;
+    } else {
+      isPlayerWinner = false; // Draw
+    }
+  }
+
+  void incrementScore(bool isPlayer, int scoreIncrease){
+    if (isPlayer) {
+      playerScore += scoreIncrease;
+    } else {
+      opponentScore += scoreIncrease;
     }
   }
 }
