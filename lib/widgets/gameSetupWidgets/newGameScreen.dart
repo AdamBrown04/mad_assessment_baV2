@@ -267,7 +267,10 @@ class _NewgamescreenState extends State<Newgamescreen> {
                         opponentPoints: opponentPoints,
                         playedDay: playedDay,
                         remindMeToTakePictures:
-                            remindMeToTakePictures, 
+                            remindMeToTakePictures,
+                         gameTurn: 1,
+                        playerScore: playerScore,
+                        opponentScore: opponentScore,
                       ),
                     ));
                   },

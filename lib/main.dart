@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/models/playerInformation.dart';
 import 'package:mad_assessment_ba/providers/gameDetailsProvider.dart';
+import 'package:mad_assessment_ba/services/notification_services.dart';
 import 'package:mad_assessment_ba/widgets/homeWidgets/gameHistoryScreen.dart';
 import 'package:mad_assessment_ba/widgets/homeWidgets/profileScreen.dart';
 import 'package:mad_assessment_ba/widgets/homeWidgets/statsPageScreen.dart';
@@ -9,7 +10,10 @@ import 'package:mad_assessment_ba/widgets/themes/applicationThemes.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await NotificationServices.initializeNotifications();
   runApp(const BAScorekeep());
 }
 

@@ -23,6 +23,9 @@ class MyThemes {
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all(Colors.black),
         iconColor: MaterialStateProperty.all(Colors.black),
+        backgroundColor:
+            MaterialStateProperty.all(const Color.fromARGB(119, 227, 227, 227)),
+        shadowColor: MaterialStateProperty.all(Colors.grey),
       ),
     ),
   );
@@ -51,6 +54,13 @@ class MyThemes {
         iconColor: MaterialStateProperty.all(Colors.white),
         backgroundColor:
             MaterialStateProperty.all(const Color.fromARGB(119, 55, 55, 55)),
+      ),
+    ),
+    cardTheme: CardTheme(
+      color: const Color.fromARGB(119, 55, 55, 55),
+      shadowColor: Colors.grey,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
     ),
   );
