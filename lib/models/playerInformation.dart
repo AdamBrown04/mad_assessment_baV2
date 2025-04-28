@@ -1,13 +1,13 @@
 class Playerinformation {
   final String playerName;
   late final bool darkMode;
-  final int totalGamesPlayed;
-  final int totalGamesWon;
-  final int totalGamesLost;
-  final int totalGamesDrawn;
+  int totalGamesPlayed;
+  int totalGamesWon;
+  int totalGamesLost;
+  int totalGamesDrawn;
   final double winRate;
-  final int currentWinSteak;
-  final int longestWinSteak;
+  int currentWinSteak;
+  int longestWinSteak;
 
   Playerinformation(
       {required this.playerName,
@@ -20,13 +20,36 @@ class Playerinformation {
       required this.currentWinSteak,
       required this.longestWinSteak});
 
-  double getWinRate() {
-    if (totalGamesPlayed == 0) {
+  double getWinRate(int totalGames, int gamesWon,
+      int gamesDrawn) {
+    if (totalGames == 0) {
       return 0.0;
     } else {
-      int conclusiveGames = totalGamesPlayed - totalGamesDrawn;
-      return (totalGamesWon / conclusiveGames) * 100;
+      int conclusiveGames = totalGames - gamesDrawn;
+      return (gamesWon / conclusiveGames) * 100;
     }
+  }
+
+  void incrementGamesPlayed() {
+    totalGamesPlayed++;
+  }
+
+  void incrementGamesWon() {
+    totalGamesWon++;
+    currentWinSteak++;
+    if (currentWinSteak > longestWinSteak) {
+      longestWinSteak = currentWinSteak;
+    }
+  }
+
+  void incrementGamesLost() {
+    totalGamesLost++;
+    currentWinSteak = 0;
+  }
+
+  void incrementGamesDrawn() {
+    totalGamesDrawn++;
+    currentWinSteak = 0;
   }
 
   String getTheme() {
