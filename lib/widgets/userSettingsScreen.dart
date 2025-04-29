@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/main.dart';
 import 'package:mad_assessment_ba/services/databaseServices.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -10,8 +13,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool userConfirmation() {
-    bool isConfirmed = false;
+
+  void userConfirmationGameHistory() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -30,7 +33,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 Databaseservices.resetDatabase(); // Reset player information
                 Navigator.of(context).pop(); // Close the dialog
-                isConfirmed = true; // Set the confirmation flag to true
               },
               child: const Text("Reset"),
             ),
@@ -38,7 +40,42 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
       },
     );
-    return isConfirmed;
+  }
+
+  Future<File> get _localFile async {
+    final directory = await getApplicationDocumentsDirectory();
+    return File('${directory.path}/playerInformation.txt');
+  }
+  
+  void userConfirmationProfile(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Confirmation"),
+          content:
+              const Text("Are you sure you want to reset the profile?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); 
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                final file = _localFile;
+                file.then((value) {
+                  value.writeAsString("Player,false,0,0,0,0,0.0,0,0");
+                });
+                Navigator.of(context).pop(); 
+              },
+              child: const Text("Reset"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -72,8 +109,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.dark_mode),
-                      Text("Dark Mode"),
+                      Icon(
+                        Icons.dark_mode,
+                        size: 30,
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            "Dark Mode",
+                            style: TextStyle(fontSize: 17.5),
+                          )),
                       Spacer(),
                       ValueListenableBuilder<bool>(
                         valueListenable: BAScorekeep.isDarkMode,
@@ -108,9 +153,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     onPressed: () {
-                      userConfirmation();
+                      userConfirmationGameHistory();
                     },
                     child: Text("Reset Game History")),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.1,
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      userConfirmationProfile();
+                    },
+                    child: Text("Reset Profile")),
               ),
             ),
           ],
