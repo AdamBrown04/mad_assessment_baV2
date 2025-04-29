@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/navigation/bottomnavbar.dart';
+import 'package:mad_assessment_ba/providers/gameDetailsProvider.dart';
 import 'package:mad_assessment_ba/services/databaseServices.dart';
 import 'package:mad_assessment_ba/widgets/gamePreviewScreen.dart';
 import 'package:mad_assessment_ba/widgets/gameSetupWidgets/newGameScreen.dart';
+import 'package:provider/provider.dart';
 
 class Gamehistoryscreen extends StatefulWidget {
   const Gamehistoryscreen({super.key});
@@ -42,6 +44,8 @@ class _GamehistoryscreenState extends State<Gamehistoryscreen> {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Newgamescreen()));
+                Provider.of<GameDetailsProvider>(context, listen: false)
+                    .resetGameDetails();
               },
             )
           ],
