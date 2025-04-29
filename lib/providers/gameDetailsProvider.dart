@@ -10,6 +10,7 @@ class GameDetailsProvider extends ChangeNotifier {
   String? deploymentType;
   int? playerPoints;
   int? opponentPoints;
+  String? deploymentZone;
 
   void updateGameDetails({
     required String playerName,
@@ -21,6 +22,7 @@ class GameDetailsProvider extends ChangeNotifier {
     required String? gameType,
     required String? mission,
     required String? deploymentType,
+    required String? deploymentZone,
   }) {
     this.playerName = playerName;
     this.opponentName = opponentName;
@@ -31,6 +33,7 @@ class GameDetailsProvider extends ChangeNotifier {
     this.gameType = gameType;
     this.mission = mission;
     this.deploymentType = deploymentType;
+    this.deploymentZone = deploymentZone;
 
     notifyListeners(); // Notify listeners of the changes
   }
@@ -43,6 +46,7 @@ class GameDetailsProvider extends ChangeNotifier {
     gameType = null;
     mission = null;
     deploymentType = null;
+    deploymentZone = null;
     playerPoints = null;
     opponentPoints = null;
 

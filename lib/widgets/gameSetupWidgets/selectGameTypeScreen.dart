@@ -56,7 +56,9 @@ class _SelectgametypescreenState extends State<Selectgametypescreen> {
                 subtitle: Text(
                     "Scenarios that are found within the Bolt Action 3rd edtion compendium book"),
                 trailing: Icon(Icons.arrow_forward),
-                onTap: () {},
+                onTap: () {
+                  //there is no compendium scenario screen yet as I do not own the book to implement it
+                },
               ),
               Divider(height: 1, color: Colors.grey),
               ListTile(
@@ -74,6 +76,7 @@ class _SelectgametypescreenState extends State<Selectgametypescreen> {
                           'gameType': "Custom",
                           'mission': "Custom Mission",
                           'deploymentType': "Custom Deployment",
+                          'deploymentZone' : "Custom Zone",
                         },
                       ),
                     ),

@@ -17,6 +17,7 @@ class _NewgamescreenState extends State<Newgamescreen> {
   String gameType = "Game Type";
   String mission = "Mission";
   String deploymentType = "Deployment Type";
+  String deploymentZone = "Deployment Zone";
   String? playerArmy;
   String? opponentArmy;
   int playerPoints = 0;
@@ -46,6 +47,7 @@ class _NewgamescreenState extends State<Newgamescreen> {
     gameType = "Game Type";
     mission = "Mission";
     deploymentType = "Deployment Type";
+    deploymentZone = "Deployment Zone";
     playerArmy = null;
     opponentArmy = null;
     playerPoints = 0;
@@ -70,6 +72,7 @@ class _NewgamescreenState extends State<Newgamescreen> {
     gameType = GameDetais.gameType ?? "Game Type";
     mission = GameDetais.mission ?? "Scenario";
     deploymentType = GameDetais.deploymentType ?? "Deployment Type";
+    deploymentZone = GameDetais.deploymentZone ?? "Deployment Zone";
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -170,8 +173,9 @@ class _NewgamescreenState extends State<Newgamescreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(gameType, style: TextStyle(fontSize: 18)),
-                          Text("$mission | $deploymentType",
+                          Text("$gameType | $mission",
+                              style: TextStyle(fontSize: 18)),
+                          Text("$deploymentZone | $deploymentType",
                               style: TextStyle(fontSize: 18)),
                           Text(
                             "Points: $playerPoints vs $opponentPoints",
@@ -252,27 +256,51 @@ class _NewgamescreenState extends State<Newgamescreen> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => Currentgamescreen(
-                        playerName: playerName,
-                        opponentName: opponentName,
-                        gameDescription: gameDescription,
-                        gameType: gameType,
-                        mission: mission,
-                        deploymentType: deploymentType,
-                        playerArmy: playerArmy,
-                        opponentArmy: opponentArmy,
-                        playerPoints: playerPoints,
-                        opponentPoints: opponentPoints,
-                        playedDay: playedDay,
-                        remindMeToTakePictures:
-                            remindMeToTakePictures,
-                         gameTurn: 1,
-                        playerScore: playerScore,
-                        opponentScore: opponentScore,
-                      ),
-                    ));
+                    //The reason the if statement is only for playerName is because to have filled out the playerName field
+                    //means that the user has filled out all other information for the game due to other verification of inputs
+                    if (playerName != "Player") {
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Currentgamescreen(
+                              playerName: playerName,
+                              opponentName: opponentName,
+                              gameDescription: gameDescription,
+                              gameType: gameType,
+                              mission: mission,
+                              deploymentType: deploymentType,
+                              playerArmy: playerArmy,
+                              opponentArmy: opponentArmy,
+                              playerPoints: playerPoints,
+                              opponentPoints: opponentPoints,
+                              playedDay: playedDay,
+                              remindMeToTakePictures: remindMeToTakePictures,
+                              gameTurn: 1,
+                              playerScore: playerScore,
+                              opponentScore: opponentScore,
+                              deploymentZone: deploymentZone,
+                            ),
+                          ));
+                    }else{
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text("Error"),
+                            content: Text("Please enter information for the game"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("OK"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                   },
                   child: Text(
                     "Continue",

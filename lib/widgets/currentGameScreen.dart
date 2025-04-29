@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/services/notification_services.dart';
 import 'package:mad_assessment_ba/widgets/gameOverviewScreen.dart';
 
+// ignore: must_be_immutable
 class Currentgamescreen extends StatefulWidget {
   Currentgamescreen({
     super.key,
@@ -14,6 +15,7 @@ class Currentgamescreen extends StatefulWidget {
     required this.deploymentType,
     required this.mission,
     required this.gameType,
+    required this.deploymentZone,
     required this.gameDescription,
     required this.opponentName,
     required this.playerName,
@@ -37,6 +39,7 @@ class Currentgamescreen extends StatefulWidget {
   int playerScore = 0;
   int opponentScore = 0;
   final int gameTurn;
+  final String deploymentZone;
 
   @override
   State<Currentgamescreen> createState() => _CurrentgamescreenState();
@@ -78,7 +81,7 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
             ),
             Text(widget.playerName,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text("${widget.playerArmy}",
+            Text("${widget.playerArmy}: ${widget.playerPoints} points",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             Text("Points this turn"),
             Row(
@@ -117,7 +120,7 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
             ),
             Text(widget.opponentName,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text("${widget.opponentArmy}",
+            Text("${widget.opponentArmy}: ${widget.opponentPoints} points",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             Text("Points this turn"),
             Row(
@@ -191,6 +194,7 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
                                       gameTurn: widget.gameTurn + 1,
                                       opponentScore: widget.opponentScore,
                                       playerScore: widget.playerScore,
+                                      deploymentZone: widget.deploymentZone,
                                     )));
                       },
                       child: Text("Next Turn", style: TextStyle(fontSize: 20))),
@@ -228,11 +232,25 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
                       for (var i = 0; i < widget.gameTurn; i++) {
                         Navigator.pop(context);
                       }
-                      Navigator.pop(context);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Gameoverviewscreen()));
+                              builder: (context) => Gameoverviewscreen(
+                                    opponentPoints: widget.opponentPoints,
+                                    playerPoints: widget.playerPoints,
+                                    opponentArmy: widget.opponentArmy,
+                                    playerArmy: widget.playerArmy,
+                                    opponentName: widget.opponentName,
+                                    playerName: widget.playerName,
+                                    gameTurn: widget.gameTurn,
+                                    opponentScore: widget.opponentScore,
+                                    playerScore: widget.playerScore,
+                                    playedDay: widget.playedDay,
+                                    deploymentType: widget.deploymentType,
+                                    mission: widget.mission,
+                                    gameType: widget.gameType,
+                                    deploymentZone: widget.deploymentZone,
+                                  )));
                     },
                     child: Text("End Game", style: TextStyle(fontSize: 20))),
               ),

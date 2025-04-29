@@ -32,27 +32,27 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
                 Navigator.pop(context);
                 int randomMission = Random().nextInt(5) + 1;
                 String? mission;
-                String? deploymentType;
+                String? deploymentZone;
                 switch (randomMission) {
                   case 1:
                     mission = "Envelopment";
-                    deploymentType = "Long Edges";
+                    deploymentZone = "Long Edges";
                     break;
                   case 2:
                     mission = "Manhunt";
-                    deploymentType = "Long Edges";
+                    deploymentZone = "Long Edges";
                     break;
                   case 3:
                     mission = "Point Defence";
-                    deploymentType = "Long Edges";
+                    deploymentZone = "Long Edges";
                     break;
                   case 4:
                     mission = "Land Grab";
-                    deploymentType = "Quarters";
+                    deploymentZone = "Quarters";
                     break;
                   case 5:
                     mission = "Surrounded!";
-                    deploymentType = "Quarters";
+                    deploymentZone = "Quarters";
                     break;
                 }
                 Navigator.push(
@@ -64,7 +64,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
                       arguments: {
                         'gameType': "Narrative",
                         'mission': mission,
-                        'deploymentType': deploymentType,
+                        'deploymentType': "narrative",
+                        'deploymentZone': deploymentZone,
                       },
                     ),
                   ),
@@ -87,7 +88,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
                       arguments: {
                         'gameType': "Narrative",
                         'mission': "Envelopment",
-                        'deploymentType': "Long Edges",
+                        'deploymentType': "narrative",
+                        'deploymentZone': "Long Edges",
                       },
                     ),
                   ),
@@ -110,7 +112,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
                       arguments: {
                         'gameType': "Narrative",
                         'mission': "Manhunt",
-                        'deploymentType': "Long Edges",
+                        'deploymentType': "narrative",
+                        'deploymentZone': "Long Edges",
                       },
                     ),
                   ),
@@ -133,7 +136,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
                       arguments: {
                         'gameType': "Narrative",
                         'mission': "Point Defence",
-                        'deploymentType': "Long Edges",
+                        'deploymentType': "narrative",
+                        'deploymentZone': "Long Edges",
                       },
                     ),
                   ),
@@ -156,7 +160,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
                       arguments: {
                         'gameType': "Narrative",
                         'mission': "Land Grab",
-                        'deploymentType': "Quarters",
+                        'deploymentType': "narrative",
+                        'deploymentZone': "Quarters",
                       },
                     ),
                   ),
@@ -179,7 +184,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
                       arguments: {
                         'gameType': "Narrative",
                         'mission': "Surrounded!",
-                        'deploymentType': "Quarters",
+                        'deploymentType': "narrative",
+                        'deploymentZone': "Quarters",
                       },
                     ),
                   ),

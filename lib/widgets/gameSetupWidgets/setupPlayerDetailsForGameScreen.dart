@@ -22,6 +22,7 @@ class _SetupplayerdetailsforgamescreenState
   String? mission;
   String? gameType;
   String? deploymentType;
+  String? deploymentZone;
 
   List<String> availableArmies = [
     "British Army",
@@ -66,33 +67,12 @@ class _SetupplayerdetailsforgamescreenState
         gameType = args['gameType'];
         mission = args['mission'];
         deploymentType = args['deploymentType'];
+        deploymentZone = args['deploymentZone'];
       });
     }
   }
 
   void validateUserInput() {
-    if (playerPoints == 0 ||
-        opponentPoints == 0 ||
-        playerPoints == null ||
-        opponentPoints == null) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Error"),
-              content: Text("Please enter points for both players"),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("OK"),
-                ),
-              ],
-            );
-          });
-      return;
-    }
     if (playerName == null || playerName == "") {
       showDialog(
           context: context,
@@ -100,25 +80,6 @@ class _SetupplayerdetailsforgamescreenState
             return AlertDialog(
               title: Text("Error"),
               content: Text("Please enter your name"),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("OK"),
-                ),
-              ],
-            );
-          });
-      return;
-    }
-    if (opponentName == null || opponentName == "") {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Error"),
-              content: Text("Please enter your opponent's name"),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -150,6 +111,26 @@ class _SetupplayerdetailsforgamescreenState
           });
       return;
     }
+    if (opponentName == null || opponentName == "") {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text("Please enter your opponent's name"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("OK"),
+                ),
+              ],
+            );
+          });
+      return;
+    }
+
     if (opponentArmy == null || opponentArmy == "") {
       showDialog(
           context: context,
@@ -157,6 +138,28 @@ class _SetupplayerdetailsforgamescreenState
             return AlertDialog(
               title: Text("Error"),
               content: Text("Please select your opponent's army"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("OK"),
+                ),
+              ],
+            );
+          });
+      return;
+    }
+    if (playerPoints == 0 ||
+        opponentPoints == 0 ||
+        playerPoints == null ||
+        opponentPoints == null) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text("Please enter points for both players"),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -181,6 +184,7 @@ class _SetupplayerdetailsforgamescreenState
         mission: mission,
         gameType: gameType,
         deploymentType: deploymentType,
+        deploymentZone: deploymentZone,
       );
       Navigator.pop(context);
     }
