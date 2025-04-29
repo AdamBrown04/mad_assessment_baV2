@@ -10,6 +10,37 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  bool userConfirmation() {
+    bool isConfirmed = false;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Confirmation"),
+          content:
+              const Text("Are you sure you want to reset the game history?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                Databaseservices.resetDatabase(); // Reset player information
+                Navigator.of(context).pop(); // Close the dialog
+                isConfirmed = true; // Set the confirmation flag to true
+              },
+              child: const Text("Reset"),
+            ),
+          ],
+        );
+      },
+    );
+    return isConfirmed;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +61,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: TextButton(
                   onPressed: () {
                     setState(() {
-                      BAScorekeep.isDarkMode.value = !BAScorekeep.isDarkMode.value;
+                      BAScorekeep.isDarkMode.value =
+                          !BAScorekeep.isDarkMode.value;
                     });
                   },
                   style: TextButton.styleFrom(
@@ -76,9 +108,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Databaseservices
-                          .resetDatabase(); // Reset player information // Reset game history
-                      Navigator.pop(context); // Close settings screen
+                      userConfirmation();
                     },
                     child: Text("Reset Game History")),
               ),
