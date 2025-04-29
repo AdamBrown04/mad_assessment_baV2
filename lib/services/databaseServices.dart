@@ -10,9 +10,27 @@ class Databaseservices {
   }
 
   static Future<void> createDatabase(Database db, int version) async {
-    String sqlGame =
-        "CREATE TABLE IF NOT EXISTS game_history (gameID INTEGER PRIMARY KEY, playerName TEXT, opponentName TEXT, playerPoints INTEGER, opponentPoints INTEGER, playerArmy TEXT, opponentArmy TEXT, dateTime TEXT, isPlayerWinner INTEGER)";
-    db.execute(sqlGame);
+    String sqlGame = '''
+    CREATE TABLE IF NOT EXISTS game_history (
+      gameID INTEGER PRIMARY KEY,
+      playerName TEXT,
+      opponentName TEXT,
+      playerPoints INTEGER,
+      opponentPoints INTEGER,
+      playerArmy TEXT,
+      opponentArmy TEXT,
+      dateTime TEXT,
+      isPlayerWinner INTEGER,
+      deploymentType TEXT,
+      deploymentZone TEXT,
+      gameDescription TEXT,
+      gameType TEXT,
+      mission TEXT,
+      playerScore INTEGER,
+      opponentScore INTEGER
+    )
+  ''';
+    await db.execute(sqlGame);
   }
 
 //database operations for games
@@ -20,7 +38,7 @@ class Databaseservices {
     final db = await _openDatabase();
     String sql = '''
     INSERT INTO game_history (gameID, playerName, opponentName, playerPoints, opponentPoints, playerArmy, opponentArmy, dateTime, isPlayerWinner, 
-      deploymentType, gameDescription, gameType, mission, playerScore, opponentScore) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''';
+      deploymentType, deploymentZone, gameDescription, gameType, mission, playerScore, opponentScore) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''';
     await db.execute(sql, [
       gameHistory.gameID,
       gameHistory.playerName,
@@ -32,6 +50,7 @@ class Databaseservices {
       gameHistory.playedDay.toIso8601String(),
       gameHistory.isPlayerWinner ? 1 : 0,
       gameHistory.deploymentType,
+      gameHistory.deploymentZone,
       gameHistory.gameDescription,
       gameHistory.gameType,
       gameHistory.mission,
@@ -50,5 +69,18 @@ class Databaseservices {
   static Future<List<Map<String, dynamic>>> getAllGameHistory() async {
     final db = await _openDatabase();
     return db.query('game_history');
+  }
+
+  static Future<void> resetDatabase() async {
+    final db = await _openDatabase();
+    await db.execute('DROP TABLE IF EXISTS game_history');
+    await createDatabase(db, 1);
+  }
+
+  static Future<int> getNextGameID() async {
+    final db = await _openDatabase();
+    final result = await db.rawQuery('SELECT MAX(gameID) as maxID FROM game_history');
+    final maxID = result.first['maxID'] as int?;
+    return (maxID ?? 0) + 1; // If no records exist, start with 1
   }
 }

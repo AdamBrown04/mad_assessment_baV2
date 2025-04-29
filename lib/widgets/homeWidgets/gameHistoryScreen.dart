@@ -23,6 +23,13 @@ class _GamehistoryscreenState extends State<Gamehistoryscreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    displayAllGameRecords();
+  }
+  
+
+  @override
   Widget build(BuildContext context) {
     return navbar(
       currentIndex: 0,
@@ -40,15 +47,24 @@ class _GamehistoryscreenState extends State<Gamehistoryscreen> {
           ],
         ),
         body: SafeArea(
-            child: Center(
-          child: ListView.builder(
-            itemCount: gameHistoryList.length,
-            itemBuilder: (context, index) {
-              return Gamepreviewscreen(
-                  gameHistoryID: gameHistoryList[index]['gameID']);
-            },
-          ),
-        )),
+          child: gameHistoryList.isEmpty
+              ? const Center(
+                  child: Text("No game records found."),
+                )
+              : ListView.builder(
+                  itemCount: gameHistoryList.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Card(
+                        child: Gamepreviewscreen(
+                          gameHistoryID: gameHistoryList[index]['gameID'],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+        ),
       ),
     );
   }

@@ -13,6 +13,7 @@ void main() {
     playedDay: DateTime.utc(2025, 7, 4),
     isPlayerWinner: false,
     deploymentType: "Deployment1",
+    deploymentZone: "Zone1",
     gameDescription: "Test Game",
     gameType: "Type1",
     mission: "Mission1",

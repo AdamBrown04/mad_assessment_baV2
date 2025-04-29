@@ -10,6 +10,7 @@ class Gamehistory {
   final String gameType;
   final String mission;
   final String deploymentType;
+  final String deploymentZone;
   final int playerPoints;
   final int opponentPoints;
   int playerScore;
@@ -30,6 +31,7 @@ class Gamehistory {
     required this.playedDay,
     required this.isPlayerWinner,
     required this.deploymentType,
+    required this.deploymentZone,
     required this.gameDescription,
     required this.gameType,
     required this.mission,
@@ -44,11 +46,9 @@ class Gamehistory {
   String outputWinner() {
     if (isPlayerWinner) {
       return "Victory";
-    }
-    else if (playerScore == opponentScore) {
+    } else if (playerScore == opponentScore) {
       return "Draw";
-    }
-    else {
+    } else {
       return "Loss";
     }
   }
@@ -63,11 +63,32 @@ class Gamehistory {
     }
   }
 
-  void incrementScore(bool isPlayer, int scoreIncrease){
+  void incrementScore(bool isPlayer, int scoreIncrease) {
     if (isPlayer) {
       playerScore += scoreIncrease;
     } else {
       opponentScore += scoreIncrease;
     }
+  }
+
+  factory Gamehistory.fromMap(Map<String, dynamic> map) {
+    return Gamehistory(
+      gameID: map['gameID'] as int,
+      playerName: map['playerName'] as String,
+      opponentName: map['opponentName'] as String,
+      playerScore: map['playerScore'] as int,
+      opponentScore: map['opponentScore'] as int,
+      playedDay: DateTime.parse(map['dateTime'] as String),
+      isPlayerWinner: (map['isPlayerWinner'] as int) == 1,
+      deploymentType: map['deploymentType'] as String,
+      deploymentZone: map['deploymentZone'] as String,
+      gameDescription: map['gameDescription'] as String,
+      gameType: map['gameType'] as String,
+      mission: map['mission'] as String,
+      playerArmy: map['playerArmy'] as String,
+      opponentArmy: map['opponentArmy'] as String,
+      playerPoints: map['playerPoints'] as int,
+      opponentPoints: map['opponentPoints'] as int,
+    );
   }
 }

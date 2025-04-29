@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mad_assessment_ba/models/gameHistory.dart';
+import 'package:mad_assessment_ba/services/databaseServices.dart';
 import 'package:mad_assessment_ba/services/notification_services.dart';
 import 'package:mad_assessment_ba/widgets/gameOverviewScreen.dart';
 
@@ -228,7 +230,26 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async{
+                      final nextGameID = await Databaseservices.getNextGameID();
+                      await Databaseservices.insertGameHistory(Gamehistory(
+                        gameID: nextGameID,
+                        playerName: widget.playerName,
+                        opponentName: widget.opponentName,
+                        playerPoints: widget.playerPoints,
+                        opponentPoints: widget.opponentPoints,
+                        playerArmy: widget.playerArmy ?? "No Army",
+                        opponentArmy: widget.opponentArmy ?? "No Army",
+                        playedDay: widget.playedDay,
+                        isPlayerWinner:
+                            widget.playerScore > widget.opponentScore,
+                        deploymentType: widget.deploymentType,
+                        deploymentZone: widget.deploymentZone,
+                        gameDescription: widget.gameDescription,
+                        gameType: widget.gameType,
+                        mission: widget.mission,
+                        playerScore: widget.playerScore,
+                        opponentScore: widget.opponentScore));
                       for (var i = 0; i < widget.gameTurn; i++) {
                         Navigator.pop(context);
                       }

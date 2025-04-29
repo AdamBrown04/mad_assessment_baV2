@@ -228,6 +228,7 @@ class _GameoverviewscreenState extends State<Gameoverviewscreen> {
                     ),
                     onPressed: () {
                       Navigator.pop(context);
+                       Navigator.pushReplacementNamed(context, '/widgets/gameHistoryScreen');
                     },
                     child: Text("Return to Game History",
                         style: TextStyle(

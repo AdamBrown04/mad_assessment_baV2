@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/main.dart';
+import 'package:mad_assessment_ba/services/databaseServices.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -40,6 +41,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ],
             ),
+            TextButton(onPressed: (){
+              Databaseservices.resetDatabase(); // Reset player information // Reset game history
+              Navigator.pop(context); // Close settings screen
+            }, child: Text("Reset Game History")),
           ],
         ),
       ),
