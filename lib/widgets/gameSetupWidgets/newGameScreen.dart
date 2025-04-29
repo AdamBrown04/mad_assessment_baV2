@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/providers/gameDetailsProvider.dart';
+import 'package:mad_assessment_ba/services/notification_services.dart';
 import 'package:mad_assessment_ba/widgets/currentGameScreen.dart';
 import 'package:mad_assessment_ba/widgets/gameSetupWidgets/selectGameTypeScreen.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class Newgamescreen extends StatefulWidget {
@@ -73,6 +77,32 @@ class _NewgamescreenState extends State<Newgamescreen> {
     mission = GameDetais.mission ?? "Scenario";
     deploymentType = GameDetais.deploymentType ?? "Deployment Type";
     deploymentZone = GameDetais.deploymentZone ?? "Deployment Zone";
+
+    Future<void> getNotificationPermission(bool isSwitchingOn) async {
+      if (isSwitchingOn) {
+        final status = await Permission.notification.request();
+        if (status.isDenied) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text("Permission Denied"),
+                content: Text("Please enable notifications in settings."),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("OK"),
+                  ),
+                ],
+              );
+            },
+          );
+        }
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -209,6 +239,7 @@ class _NewgamescreenState extends State<Newgamescreen> {
                         ),
                       ),
                       onPressed: () {
+                        getNotificationPermission(!remindMeToTakePictures);
                         setState(() {
                           remindMeToTakePictures = !remindMeToTakePictures;
                         });
@@ -282,13 +313,14 @@ class _NewgamescreenState extends State<Newgamescreen> {
                               deploymentZone: deploymentZone,
                             ),
                           ));
-                    }else{
+                    } else {
                       showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
                             title: Text("Error"),
-                            content: Text("Please enter information for the game"),
+                            content:
+                                Text("Please enter information for the game"),
                             actions: [
                               TextButton(
                                 onPressed: () {
