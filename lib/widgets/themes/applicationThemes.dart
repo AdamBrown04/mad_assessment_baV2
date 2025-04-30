@@ -28,6 +28,15 @@ class MyThemes {
         shadowColor: MaterialStateProperty.all(Colors.grey),
       ),
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Colors.white),
+        iconColor: MaterialStateProperty.all(Colors.black),
+        backgroundColor:
+            MaterialStateProperty.all(const Color.fromARGB(119, 227, 227, 227)),
+        shadowColor: MaterialStateProperty.all(Colors.white),
+      ),
+    ),
   );
 
   ThemeData darkTheme = ThemeData(
@@ -61,6 +70,13 @@ class MyThemes {
       shadowColor: Colors.grey,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(const Color.fromARGB(119, 55, 55, 55)),
+        iconColor: MaterialStateProperty.all(Colors.white),
+        foregroundColor: MaterialStateProperty.all(Colors.white),
       ),
     ),
   );

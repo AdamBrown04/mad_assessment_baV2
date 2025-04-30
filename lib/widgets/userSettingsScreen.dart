@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/main.dart';
 import 'package:mad_assessment_ba/services/databaseServices.dart';
+import 'package:mad_assessment_ba/widgets/editProfileScreen.dart';
 import 'package:path_provider/path_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -142,6 +143,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
+            Padding(padding: const EdgeInsets.all(10),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Editprofilescreen(),
+                    ),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.person_outline, size: 30),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        "Edit Profile",
+                        style: TextStyle(fontSize: 17.5),
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(Icons.arrow_forward, size: 30),
+                  ],
+                ),
+              ),
+            ),),
             Padding(
               padding: const EdgeInsets.all(10),
               child: SizedBox(
@@ -155,7 +189,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onPressed: () {
                       userConfirmationGameHistory();
                     },
-                    child: Text("Reset Game History")),
+                    child: Text("Reset Game History", 
+                        style: TextStyle(fontSize: 17.5))),
               ),
             ),
             Padding(
@@ -171,7 +206,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onPressed: () {
                       userConfirmationProfile();
                     },
-                    child: Text("Reset Profile")),
+                    child: Text("Reset Profile", 
+                        style: TextStyle(fontSize: 17.5))),
               ),
             ),
           ],
