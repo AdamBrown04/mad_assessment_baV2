@@ -3,6 +3,7 @@ import 'package:mad_assessment_ba/navigation/bottomnavbar.dart';
 import 'package:mad_assessment_ba/providers/playerDetailsProvider.dart';
 import 'package:mad_assessment_ba/widgets/userSettingsScreen.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
 
 class Profilescreen extends StatelessWidget {
   const Profilescreen({super.key});
@@ -40,7 +41,9 @@ class Profilescreen extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage('images/myProfilePic.jpg'),
+                      backgroundImage: Provider.of<PlayerdetailsProvider>(context).profilePicture != 'images/myProfilePic.jpg'
+                          ? FileImage(File(Provider.of<PlayerdetailsProvider>(context).profilePicture))
+                          : AssetImage('images/myProfilePic.jpg') as ImageProvider,
                     ),
                     SizedBox(height: 20),
                     Text(

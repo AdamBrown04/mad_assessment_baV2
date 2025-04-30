@@ -30,7 +30,7 @@ class MyThemes {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(Colors.white),
+        foregroundColor: MaterialStateProperty.all(Colors.black),
         iconColor: MaterialStateProperty.all(Colors.black),
         backgroundColor:
             MaterialStateProperty.all(const Color.fromARGB(119, 227, 227, 227)),

@@ -11,6 +11,7 @@ class PlayerdetailsProvider extends ChangeNotifier{
   double winRate = 0.0;
   int currentWinSteak = 0;
   int longestWinSteak = 0;
+  String profilePicture = "images/myProfilePic.jpg";
 
   void updatePlayerDetails({
     required String playerName,
@@ -42,6 +43,8 @@ class PlayerdetailsProvider extends ChangeNotifier{
   void resetPlayerDetails() {
     playerName = "Player";
     darkMode = false;
+    usePlayerName = false;
+    profilePicture = "images/myProfilePic.jpg";
     totalGamesPlayed = 0;
     totalGamesWon = 0;
     totalGamesLost = 0;
@@ -49,7 +52,7 @@ class PlayerdetailsProvider extends ChangeNotifier{
     winRate = 0.0;
     currentWinSteak = 0;
     longestWinSteak = 0;
-
+    
     notifyListeners(); 
   }
 
@@ -96,6 +99,11 @@ class PlayerdetailsProvider extends ChangeNotifier{
 
   void updateUsePlayerName(bool value) {
     usePlayerName = value;
+    notifyListeners(); 
+  }
+
+  void updateImageFile(String filePath) {
+    profilePicture = filePath;
     notifyListeners(); 
   }
 }
