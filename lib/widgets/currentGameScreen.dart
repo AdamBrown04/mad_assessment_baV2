@@ -276,7 +276,7 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
                           .incrementTotalGamesPlayed();
                       Provider.of<PlayerdetailsProvider>(context, listen: false)
                           .updateWinRate();
-                      await BAScorekeep().updatePlayerInformation(
+                      BAScorekeep().updatePlayerInformation(
                         totalGamesPlayed:
                             playerDetailsProvider.totalGamesPlayed,
                         totalGamesWon: playerDetailsProvider.totalGamesWon,

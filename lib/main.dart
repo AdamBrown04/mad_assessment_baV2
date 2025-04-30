@@ -104,6 +104,20 @@ class BAScorekeep extends StatelessWidget {
       playerInfo[8] = longestWinSteak.toString();
 
       await file.writeAsString(playerInfo.join(","));
+    } else {
+      // Create the file with default values and update player information
+      final defaultData =
+          "Player,$isDarkMode,0,0,0,0,0.0,0,0"; // Default player data
+      final playerInfo = defaultData.split(",");
+      playerInfo[2] = totalGamesPlayed.toString();
+      playerInfo[3] = totalGamesWon.toString();
+      playerInfo[4] = totalGamesLost.toString();
+      playerInfo[5] = totalGamesDrawn.toString();
+      playerInfo[6] = winRate.toStringAsFixed(2);
+      playerInfo[7] = currentWinSteak.toString();
+      playerInfo[8] = longestWinSteak.toString();
+
+      await file.writeAsString(playerInfo.join(","));
     }
   }
 
@@ -117,55 +131,57 @@ class BAScorekeep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Playerinformation>(
-      future: readPlayerInformation(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (snapshot.hasData) {
-          Playerinformation userDetails = snapshot.data!;
-          isDarkMode.value = userDetails.darkMode; 
-          final playerDetailsProvider = PlayerdetailsProvider();
-          playerDetailsProvider.updatePlayerDetails(
-            playerName: userDetails.playerName,
-            darkMode: userDetails.darkMode,
-            totalGamesPlayed: userDetails.totalGamesPlayed,
-            totalGamesWon: userDetails.totalGamesWon,
-            totalGamesLost: userDetails.totalGamesLost,
-            totalGamesDrawn: userDetails.totalGamesDrawn,
-            winRate: userDetails.winRate,
-            currentWinSteak: userDetails.currentWinSteak,
-            longestWinSteak: userDetails.longestWinSteak,
-          );
-          return ValueListenableBuilder<bool>(
-            valueListenable: isDarkMode,
-            builder: (context, isDark, child) {
-              return MultiProvider(
-                providers: [
-                  ChangeNotifierProvider(
-                      create: (context) => GameDetailsProvider()),
-                  ChangeNotifierProvider(
-                      create: (context) => PlayerdetailsProvider()),
-                ],
-                child: MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => GameDetailsProvider()),
+        ChangeNotifierProvider(create: (context) => PlayerdetailsProvider()),
+      ],
+      child: FutureBuilder<Playerinformation>(
+        future: readPlayerInformation(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.hasData) {
+            Playerinformation userDetails = snapshot.data!;
+            isDarkMode.value = userDetails.darkMode;
+
+            // Use a post-frame callback to update the provider
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Provider.of<PlayerdetailsProvider>(context, listen: false)
+                  .updatePlayerDetails(
+                playerName: userDetails.playerName,
+                darkMode: isDarkMode.value,
+                totalGamesPlayed: userDetails.totalGamesPlayed,
+                totalGamesWon: userDetails.totalGamesWon,
+                totalGamesLost: userDetails.totalGamesLost,
+                totalGamesDrawn: userDetails.totalGamesDrawn,
+                winRate: userDetails.winRate,
+                currentWinSteak: userDetails.currentWinSteak,
+                longestWinSteak: userDetails.longestWinSteak,
+              );
+            });
+
+            return ValueListenableBuilder<bool>(
+              valueListenable: isDarkMode,
+              builder: (context, isDark, child) {
+                return MaterialApp(
                   theme: getThemeData(isDark ? "darkTheme" : "lightTheme"),
                   initialRoute: '/widgets/gameHistoryScreen',
                   routes: {
-                    '/widgets/gameHistoryScreen': (context) =>
-                        Gamehistoryscreen(),
+                    '/widgets/gameHistoryScreen': (context) => Gamehistoryscreen(),
                     '/widgets/statsPageScreen': (context) => Statspagescreen(),
                     '/widgets/profileScreen': (context) => Profilescreen(),
                   },
-                ),
-              );
-            },
-          );
-        } else {
-          return const Center(child: Text('No data available'));
-        }
-      },
+                );
+              },
+            );
+          } else {
+            return const Center(child: Text('No data available'));
+          }
+        },
+      ),
     );
   }
 }
