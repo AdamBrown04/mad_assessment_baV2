@@ -6,6 +6,7 @@ void main(){
   Playerinformation playerInfo = Playerinformation(
     playerName: "TestPlayer",
     darkMode: false,
+    usePlayerName: false,
     totalGamesPlayed: 0,
     totalGamesWon: 0,
     totalGamesLost: 0,

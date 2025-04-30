@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class PlayerdetailsProvider extends ChangeNotifier{
   String playerName = "Player";
   bool darkMode = false;
+  bool usePlayerName = false;
   int totalGamesPlayed = 0;
   int totalGamesWon = 0;
   int totalGamesLost = 0;
@@ -14,6 +15,7 @@ class PlayerdetailsProvider extends ChangeNotifier{
   void updatePlayerDetails({
     required String playerName,
     required bool darkMode,
+    required bool usePlayerName,
     required int totalGamesPlayed,
     required int totalGamesWon,
     required int totalGamesLost,
@@ -24,6 +26,7 @@ class PlayerdetailsProvider extends ChangeNotifier{
   }) {
     this.playerName = playerName;
     this.darkMode = darkMode;
+    this.usePlayerName = usePlayerName;
     this.totalGamesPlayed = totalGamesPlayed;
     this.totalGamesWon = totalGamesWon;
     this.totalGamesLost = totalGamesLost;
@@ -31,6 +34,7 @@ class PlayerdetailsProvider extends ChangeNotifier{
     this.winRate = winRate;
     this.currentWinSteak = currentWinSteak;
     this.longestWinSteak = longestWinSteak;
+    this.usePlayerName = usePlayerName;
 
     notifyListeners(); 
   }
@@ -82,6 +86,16 @@ class PlayerdetailsProvider extends ChangeNotifier{
     } else {
       winRate = 0.0;
     }
+    notifyListeners(); 
+  }
+
+  void updatePlayerName(String name) {
+    playerName = name;
+    notifyListeners(); 
+  }
+
+  void updateUsePlayerName(bool value) {
+    usePlayerName = value;
     notifyListeners(); 
   }
 }

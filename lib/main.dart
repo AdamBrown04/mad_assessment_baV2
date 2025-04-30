@@ -58,6 +58,7 @@ class BAScorekeep extends StatelessWidget {
       return Playerinformation(
         playerName: playerInfo[0],
         darkMode: playerInfo[1] == "true",
+        usePlayerName: playerInfo[1] == "true",
         totalGamesPlayed: int.parse(playerInfo[2]),
         totalGamesWon: int.parse(playerInfo[3]),
         totalGamesLost: int.parse(playerInfo[4]),
@@ -70,6 +71,7 @@ class BAScorekeep extends StatelessWidget {
       return Playerinformation(
         playerName: "Player",
         darkMode: false,
+        usePlayerName: false,
         totalGamesPlayed: 0,
         totalGamesWon: 0,
         totalGamesLost: 0,
@@ -89,12 +91,14 @@ class BAScorekeep extends StatelessWidget {
     required double winRate,
     required int currentWinSteak,
     required int longestWinSteak,
+    required bool usePlayerName, 
   }) async {
     final file = await _localFile;
     if (await file.exists()) {
       final contents = await file.readAsString();
       final playerInfo = contents.split(",");
 
+      
       playerInfo[2] = totalGamesPlayed.toString();
       playerInfo[3] = totalGamesWon.toString();
       playerInfo[4] = totalGamesLost.toString();
@@ -102,12 +106,13 @@ class BAScorekeep extends StatelessWidget {
       playerInfo[6] = winRate.toStringAsFixed(2);
       playerInfo[7] = currentWinSteak.toString();
       playerInfo[8] = longestWinSteak.toString();
+      playerInfo[9] = usePlayerName.toString(); 
 
       await file.writeAsString(playerInfo.join(","));
     } else {
-      // Create the file with default values and update player information
+      
       final defaultData =
-          "Player,$isDarkMode,0,0,0,0,0.0,0,0"; // Default player data
+          "Player,$isDarkMode,false,0,0,0,0,0.0,0,0"; // Default player data
       final playerInfo = defaultData.split(",");
       playerInfo[2] = totalGamesPlayed.toString();
       playerInfo[3] = totalGamesWon.toString();
@@ -116,7 +121,25 @@ class BAScorekeep extends StatelessWidget {
       playerInfo[6] = winRate.toStringAsFixed(2);
       playerInfo[7] = currentWinSteak.toString();
       playerInfo[8] = longestWinSteak.toString();
+      playerInfo[9] = usePlayerName.toString(); 
 
+      await file.writeAsString(playerInfo.join(","));
+    }
+  }
+
+  Future <void> updatePlayerName(String playerName) async {
+    final file = await _localFile;
+    if (await file.exists()) {
+      final contents = await file.readAsString();
+      final playerInfo = contents.split(",");
+      playerInfo[0] = playerName; 
+      await file.writeAsString(playerInfo.join(","));
+    } else {
+      
+      final defaultData =
+          "Player,$isDarkMode,0,0,0,0,0.0,0,0"; 
+      final playerInfo = defaultData.split(",");
+      playerInfo[0] = playerName;
       await file.writeAsString(playerInfo.join(","));
     }
   }
@@ -153,6 +176,7 @@ class BAScorekeep extends StatelessWidget {
                   .updatePlayerDetails(
                 playerName: userDetails.playerName,
                 darkMode: isDarkMode.value,
+                usePlayerName: userDetails.usePlayerName,
                 totalGamesPlayed: userDetails.totalGamesPlayed,
                 totalGamesWon: userDetails.totalGamesWon,
                 totalGamesLost: userDetails.totalGamesLost,

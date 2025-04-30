@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/main.dart';
+import 'package:mad_assessment_ba/providers/playerDetailsProvider.dart';
 import 'package:mad_assessment_ba/services/databaseServices.dart';
 import 'package:mad_assessment_ba/widgets/editProfileScreen.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -69,6 +71,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 file.then((value) {
                   value.writeAsString("Player,false,0,0,0,0,0.0,0,0");
                 });
+                Provider.of<PlayerdetailsProvider>(context, listen: false)
+                    .resetPlayerDetails(); 
                 Navigator.of(context).pop(); 
               },
               child: const Text("Reset"),

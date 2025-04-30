@@ -285,6 +285,7 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
                         winRate: playerDetailsProvider.winRate,
                         currentWinSteak: playerDetailsProvider.currentWinSteak,
                         longestWinSteak: playerDetailsProvider.longestWinSteak,
+                        usePlayerName: playerDetailsProvider.usePlayerName,
                       );
                       Navigator.push(
                           context,

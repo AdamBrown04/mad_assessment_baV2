@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/providers/gameDetailsProvider.dart';
+import 'package:mad_assessment_ba/providers/playerDetailsProvider.dart';
 import 'package:provider/provider.dart';
 
 class Setupplayerdetailsforgamescreen extends StatefulWidget {
@@ -55,6 +56,12 @@ class _SetupplayerdetailsforgamescreenState
   }
 
   @override
+  void initState() {
+    super.initState();
+    useDefaultPlayerName();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
@@ -70,6 +77,16 @@ class _SetupplayerdetailsforgamescreenState
         deploymentZone = args['deploymentZone'];
       });
     }
+  }
+
+  void useDefaultPlayerName() {
+    setState(() {
+      if (Provider.of<PlayerdetailsProvider>(context, listen: false)
+          .usePlayerName) {
+        playerName = Provider.of<PlayerdetailsProvider>(context, listen: false)
+            .playerName;
+      }
+    });
   }
 
   void validateUserInput() {
@@ -224,7 +241,7 @@ class _SetupplayerdetailsforgamescreenState
                 child: TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: "Player Name",
+                    labelText: playerName ?? "Player Name",
                     icon: Icon(Icons.person),
                     counterText: "",
                   ),

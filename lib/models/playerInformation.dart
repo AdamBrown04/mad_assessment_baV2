@@ -1,6 +1,7 @@
 class Playerinformation {
   final String playerName;
   late final bool darkMode;
+  bool usePlayerName;
   int totalGamesPlayed;
   int totalGamesWon;
   int totalGamesLost;
@@ -12,6 +13,7 @@ class Playerinformation {
   Playerinformation(
       {required this.playerName,
       required this.darkMode,
+      required this.usePlayerName,
       required this.totalGamesPlayed,
       required this.totalGamesWon,
       required this.totalGamesLost,
