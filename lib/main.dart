@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/models/playerInformation.dart';
 import 'package:mad_assessment_ba/providers/gameDetailsProvider.dart';
+import 'package:mad_assessment_ba/providers/playerDetailsProvider.dart';
 import 'package:mad_assessment_ba/services/notification_services.dart';
 import 'package:mad_assessment_ba/widgets/homeWidgets/gameHistoryScreen.dart';
 import 'package:mad_assessment_ba/widgets/homeWidgets/profileScreen.dart';
@@ -80,6 +81,32 @@ class BAScorekeep extends StatelessWidget {
     }
   }
 
+  Future<void> updatePlayerInformation({
+    required int totalGamesPlayed,
+    required int totalGamesWon,
+    required int totalGamesLost,
+    required int totalGamesDrawn,
+    required double winRate,
+    required int currentWinSteak,
+    required int longestWinSteak,
+  }) async {
+    final file = await _localFile;
+    if (await file.exists()) {
+      final contents = await file.readAsString();
+      final playerInfo = contents.split(",");
+
+      playerInfo[2] = totalGamesPlayed.toString();
+      playerInfo[3] = totalGamesWon.toString();
+      playerInfo[4] = totalGamesLost.toString();
+      playerInfo[5] = totalGamesDrawn.toString();
+      playerInfo[6] = winRate.toStringAsFixed(2);
+      playerInfo[7] = currentWinSteak.toString();
+      playerInfo[8] = longestWinSteak.toString();
+
+      await file.writeAsString(playerInfo.join(","));
+    }
+  }
+
   ThemeData getThemeData(String theme) {
     if (theme == "darkTheme") {
       return MyThemes().darkTheme;
@@ -99,12 +126,29 @@ class BAScorekeep extends StatelessWidget {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (snapshot.hasData) {
           Playerinformation userDetails = snapshot.data!;
-          isDarkMode.value = userDetails.darkMode; // Initialize isDarkMode
+          isDarkMode.value = userDetails.darkMode; 
+          final playerDetailsProvider = PlayerdetailsProvider();
+          playerDetailsProvider.updatePlayerDetails(
+            playerName: userDetails.playerName,
+            darkMode: userDetails.darkMode,
+            totalGamesPlayed: userDetails.totalGamesPlayed,
+            totalGamesWon: userDetails.totalGamesWon,
+            totalGamesLost: userDetails.totalGamesLost,
+            totalGamesDrawn: userDetails.totalGamesDrawn,
+            winRate: userDetails.winRate,
+            currentWinSteak: userDetails.currentWinSteak,
+            longestWinSteak: userDetails.longestWinSteak,
+          );
           return ValueListenableBuilder<bool>(
             valueListenable: isDarkMode,
             builder: (context, isDark, child) {
-              return ChangeNotifierProvider(
-                create: (context) => GameDetailsProvider(),
+              return MultiProvider(
+                providers: [
+                  ChangeNotifierProvider(
+                      create: (context) => GameDetailsProvider()),
+                  ChangeNotifierProvider(
+                      create: (context) => PlayerdetailsProvider()),
+                ],
                 child: MaterialApp(
                   theme: getThemeData(isDark ? "darkTheme" : "lightTheme"),
                   initialRoute: '/widgets/gameHistoryScreen',
