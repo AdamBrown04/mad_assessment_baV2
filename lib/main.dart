@@ -50,6 +50,32 @@ class BAScorekeep extends StatelessWidget {
     }
   }
 
+  Future<void> updatePlayerProfilePicture(String imagePath)async{
+    debugPrint("Updating player profile picture to: $imagePath");
+    final file = await _localFile;
+    if (await file.exists()) {
+      final contents = await file.readAsString();
+      final playerInfo = contents.split(",");
+      playerInfo[10] = imagePath; 
+      await file.writeAsString(playerInfo.join(","));
+    } else {
+      final defaultData =
+          "Player,$isDarkMode,0,0,0,0,0.0,0,0"; 
+      final playerInfo = defaultData.split(",");
+      playerInfo[10] = imagePath; 
+      await file.writeAsString(playerInfo.join(","));
+    }
+  }
+  Future<String> getPlayerProfilePictureFromFile() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/profile_picture.jpg');
+    if (await file.exists()) {
+      return file.path; 
+    } else {
+      return "images/myProfilePic.jpg"; 
+    }
+  }
+
   Future<Playerinformation> readPlayerInformation() async {
     try {
       final file = await _localFile;
@@ -185,6 +211,8 @@ class BAScorekeep extends StatelessWidget {
                 currentWinSteak: userDetails.currentWinSteak,
                 longestWinSteak: userDetails.longestWinSteak,
               );
+              Provider.of<PlayerdetailsProvider>(context, listen: false)
+                  .getPlayerProfilePicture();
             });
 
             return ValueListenableBuilder<bool>(

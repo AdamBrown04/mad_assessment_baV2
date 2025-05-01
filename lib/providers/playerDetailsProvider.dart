@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mad_assessment_ba/main.dart';
 
 class PlayerdetailsProvider extends ChangeNotifier{
   String playerName = "Player";
@@ -104,6 +105,14 @@ class PlayerdetailsProvider extends ChangeNotifier{
 
   void updateImageFile(String filePath) {
     profilePicture = filePath;
+    BAScorekeep().updatePlayerProfilePicture(profilePicture);
     notifyListeners(); 
+  }
+
+  void getPlayerProfilePicture() {
+    BAScorekeep().getPlayerProfilePictureFromFile().then((value) {
+      profilePicture = value;
+      notifyListeners(); 
+    });
   }
 }

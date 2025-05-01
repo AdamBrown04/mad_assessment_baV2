@@ -17,7 +17,7 @@ class Editprofilescreen extends StatefulWidget {
 }
 
 class _EditprofilescreenState extends State<Editprofilescreen> {
-  String playerName = "Player";
+  String playerName = "Player Name";
   late bool usePlayerName;
   late bool allowedCameraRollPermission = false;
   String imagePath = "images/myProfilePic.jpg";
@@ -27,7 +27,9 @@ class _EditprofilescreenState extends State<Editprofilescreen> {
     super.initState();
     usePlayerName = Provider.of<PlayerdetailsProvider>(context, listen: false)
         .usePlayerName;
-
+imagePath = Provider.of<PlayerdetailsProvider>(context, listen: false)
+      .profilePicture;
+      playerName = Provider.of<PlayerdetailsProvider>(context, listen: false).playerName;
     getImagePath().then((path) {
       if (path != null) {
         setState(() {
@@ -51,15 +53,16 @@ class _EditprofilescreenState extends State<Editprofilescreen> {
       openAppSettings();
     }
   }
-  Future<void> saveImagePath(String path) async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setString('profile_image_path', path);
-}
 
-Future<String?> getImagePath() async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getString('profile_image_path');
-}
+  Future<void> saveImagePath(String path) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('profile_image_path', path);
+  }
+
+  Future<String?> getImagePath() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('profile_image_path');
+  }
 
   Future<void> launchCameraRollApp() async {
     final ImagePicker picker = ImagePicker();
@@ -76,7 +79,7 @@ Future<String?> getImagePath() async {
       await saveImagePath(newPath);
       imagePath = newPath;
       setState(() {
-        imageFile = newImage; 
+        imageFile = newImage;
       });
 
       print('Image saved to: ${newImage.path}');
@@ -103,7 +106,8 @@ Future<String?> getImagePath() async {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: imagePath != 'images/myProfilePic.jpg' && imagePath.isNotEmpty
+                  backgroundImage: imagePath != 'images/myProfilePic.jpg' &&
+                          imagePath.isNotEmpty
                       ? FileImage(File(imagePath))
                       : AssetImage('images/myProfilePic.jpg'),
                 ),
@@ -142,7 +146,7 @@ Future<String?> getImagePath() async {
                 SizedBox(height: 20),
                 TextField(
                     decoration: InputDecoration(
-                      labelText: 'Player Name',
+                      labelText: playerName,
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (value) {
@@ -195,8 +199,8 @@ Future<String?> getImagePath() async {
                       BAScorekeep().updatePlayerName(playerName);
                       Provider.of<PlayerdetailsProvider>(context, listen: false)
                           .updateUsePlayerName(usePlayerName);
-                          Provider.of<PlayerdetailsProvider>(context, listen: false)
-          .updateImageFile(imagePath);
+                      Provider.of<PlayerdetailsProvider>(context, listen: false)
+                          .updateImageFile(imagePath);
                       Navigator.pop(context);
                     },
                     child: Text("Save Changes",
@@ -232,5 +236,3 @@ Future<String?> getImagePath() async {
     );
   }
 }
-
-
