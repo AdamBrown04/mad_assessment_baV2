@@ -4,16 +4,8 @@ import 'package:mad_assessment_ba/models/playerInformation.dart';
 
 void main(){
   Playerinformation playerInfo = Playerinformation(
-    playerName: "TestPlayer",
     darkMode: false,
-    usePlayerName: false,
-    totalGamesPlayed: 0,
-    totalGamesWon: 0,
-    totalGamesLost: 0,
-    totalGamesDrawn: 0,
-    winRate: 0.0,
-    currentWinSteak: 0,
-    longestWinSteak: 0
+    profilePicture: "images/myProfilePic.jpg",
   );
   //tests fpr getWinRate function
   test('Test getWinRate with no games played', () {

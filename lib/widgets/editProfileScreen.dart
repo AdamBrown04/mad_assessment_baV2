@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mad_assessment_ba/main.dart';
 import 'package:mad_assessment_ba/providers/playerDetailsProvider.dart';
+import 'package:mad_assessment_ba/services/databaseServices.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
@@ -27,9 +27,10 @@ class _EditprofilescreenState extends State<Editprofilescreen> {
     super.initState();
     usePlayerName = Provider.of<PlayerdetailsProvider>(context, listen: false)
         .usePlayerName;
-imagePath = Provider.of<PlayerdetailsProvider>(context, listen: false)
-      .profilePicture;
-      playerName = Provider.of<PlayerdetailsProvider>(context, listen: false).playerName;
+    imagePath = Provider.of<PlayerdetailsProvider>(context, listen: false)
+        .profilePicture;
+    playerName =
+        Provider.of<PlayerdetailsProvider>(context, listen: false).playerName;
     getImagePath().then((path) {
       if (path != null) {
         setState(() {
@@ -196,12 +197,17 @@ imagePath = Provider.of<PlayerdetailsProvider>(context, listen: false)
                     onPressed: () {
                       Provider.of<PlayerdetailsProvider>(context, listen: false)
                           .updatePlayerName(playerName);
-                      BAScorekeep().updatePlayerName(playerName);
                       Provider.of<PlayerdetailsProvider>(context, listen: false)
                           .updateUsePlayerName(usePlayerName);
                       Provider.of<PlayerdetailsProvider>(context, listen: false)
                           .updateImageFile(imagePath);
+                      Databaseservices.updatePlayerInformation(
+                          Provider.of<PlayerdetailsProvider>(context,
+                              listen: false), Provider.of<PlayerdetailsProvider>(context, listen: false).playerID);
                       Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Changes saved successfully')),
+                      );
                     },
                     child: Text("Save Changes",
                         style: TextStyle(

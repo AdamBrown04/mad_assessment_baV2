@@ -106,6 +106,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       BAScorekeep.isDarkMode.value =
                           !BAScorekeep.isDarkMode.value;
                     });
+                    BAScorekeep().updateDarkModePreference(
+                        BAScorekeep.isDarkMode.value); // Save to file
                   },
                   style: TextButton.styleFrom(
                     shape: RoundedRectangleBorder(

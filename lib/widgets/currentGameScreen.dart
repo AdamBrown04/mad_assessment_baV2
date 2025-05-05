@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mad_assessment_ba/main.dart';
 import 'package:mad_assessment_ba/models/gameHistory.dart';
 import 'package:mad_assessment_ba/providers/playerDetailsProvider.dart';
 import 'package:mad_assessment_ba/services/databaseServices.dart';
@@ -256,9 +255,6 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
                       for (var i = 0; i < widget.gameTurn; i++) {
                         Navigator.pop(context);
                       }
-                      final playerDetailsProvider =
-                          Provider.of<PlayerdetailsProvider>(context,
-                              listen: false);
                       if (widget.playerScore > widget.opponentScore) {
                         Provider.of<PlayerdetailsProvider>(context,
                                 listen: false)
@@ -276,17 +272,10 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
                           .incrementTotalGamesPlayed();
                       Provider.of<PlayerdetailsProvider>(context, listen: false)
                           .updateWinRate();
-                      BAScorekeep().updatePlayerInformation(
-                        totalGamesPlayed:
-                            playerDetailsProvider.totalGamesPlayed,
-                        totalGamesWon: playerDetailsProvider.totalGamesWon,
-                        totalGamesLost: playerDetailsProvider.totalGamesLost,
-                        totalGamesDrawn: playerDetailsProvider.totalGamesDrawn,
-                        winRate: playerDetailsProvider.winRate,
-                        currentWinSteak: playerDetailsProvider.currentWinSteak,
-                        longestWinSteak: playerDetailsProvider.longestWinSteak,
-                        usePlayerName: playerDetailsProvider.usePlayerName,
-                      );
+                          debugPrint("Games Played: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesPlayed}, Games Won: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesWon}, Games Lost: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesLost}, Games Drawn: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesDrawn}");
+                      Databaseservices.updatePlayerInformation(
+                          Provider.of<PlayerdetailsProvider>(context,
+                              listen: false), Provider.of<PlayerdetailsProvider>(context, listen: false).playerID);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/main.dart';
 
 class PlayerdetailsProvider extends ChangeNotifier{
+  int playerID = 1;
   String playerName = "Player";
   bool darkMode = false;
   bool usePlayerName = false;
@@ -16,7 +17,6 @@ class PlayerdetailsProvider extends ChangeNotifier{
 
   void updatePlayerDetails({
     required String playerName,
-    required bool darkMode,
     required bool usePlayerName,
     required int totalGamesPlayed,
     required int totalGamesWon,
@@ -27,7 +27,6 @@ class PlayerdetailsProvider extends ChangeNotifier{
     required int longestWinSteak,
   }) {
     this.playerName = playerName;
-    this.darkMode = darkMode;
     this.usePlayerName = usePlayerName;
     this.totalGamesPlayed = totalGamesPlayed;
     this.totalGamesWon = totalGamesWon;
@@ -37,7 +36,6 @@ class PlayerdetailsProvider extends ChangeNotifier{
     this.currentWinSteak = currentWinSteak;
     this.longestWinSteak = longestWinSteak;
     this.usePlayerName = usePlayerName;
-
     notifyListeners(); 
   }
 
