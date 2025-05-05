@@ -13,6 +13,7 @@ class PlayerdetailsProvider extends ChangeNotifier{
   int currentWinSteak = 0;
   int longestWinSteak = 0;
   String profilePicture = "images/myProfilePic.jpg";
+  int imageNumber = 0;
 
   void updatePlayerDetails({
     required String playerName,
@@ -25,7 +26,11 @@ class PlayerdetailsProvider extends ChangeNotifier{
     required double winRate,
     required int currentWinSteak,
     required int longestWinSteak,
+    required String profilePicture,
+    required int imageNumber,
   }) {
+debugPrint("Updating player details...");
+
     this.playerName = playerName;
     this.darkMode = darkMode;
     this.usePlayerName = usePlayerName;
@@ -37,6 +42,8 @@ class PlayerdetailsProvider extends ChangeNotifier{
     this.currentWinSteak = currentWinSteak;
     this.longestWinSteak = longestWinSteak;
     this.usePlayerName = usePlayerName;
+    this.profilePicture = profilePicture;
+    this.imageNumber = imageNumber;
 
     notifyListeners(); 
   }
@@ -95,6 +102,7 @@ class PlayerdetailsProvider extends ChangeNotifier{
 
   void updatePlayerName(String name) {
     playerName = name;
+    BAScorekeep().updatePlayerName(playerName);
     notifyListeners(); 
   }
 
@@ -114,5 +122,22 @@ class PlayerdetailsProvider extends ChangeNotifier{
       profilePicture = value;
       notifyListeners(); 
     });
+  }
+
+  void getImageNumber() {
+    BAScorekeep().getImageNumber().then((value) {
+      imageNumber = int.parse(value);
+      notifyListeners(); 
+    });
+  }
+
+  void updateImageNumber(int number) {
+    imageNumber = number;
+    notifyListeners(); 
+  }
+
+  void updateDarkMode(bool value) {
+    darkMode = value;
+    notifyListeners(); 
   }
 }

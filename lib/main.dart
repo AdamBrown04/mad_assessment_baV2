@@ -43,57 +43,124 @@ class BAScorekeep extends StatelessWidget {
     } else {
       // Create the file with default values and update darkMode
       final defaultData =
-          "Player,$isDarkMode,0,0,0,0,0.0,0,0"; // Default player data
+          "Player,false,false,0,0,0,0,0.0,0,0,images/myProfilePic.jpg,0"; // Default player data
       final playerInfo = defaultData.split(",");
       playerInfo[1] = value.toString(); // Update darkMode value
       await file.writeAsString(playerInfo.join(","));
     }
   }
 
-  Future<void> updatePlayerProfilePicture(String imagePath)async{
-    debugPrint("Updating player profile picture to: $imagePath");
+  Future<void> updateImageNumber(int imageNumber) async {
     final file = await _localFile;
     if (await file.exists()) {
       final contents = await file.readAsString();
       final playerInfo = contents.split(",");
-      playerInfo[10] = imagePath; 
+      playerInfo[11] = imageNumber.toString();
       await file.writeAsString(playerInfo.join(","));
     } else {
       final defaultData =
-          "Player,$isDarkMode,0,0,0,0,0.0,0,0"; 
+          "Player,false,false,0,0,0,0,0.0,0,0,images/myProfilePic.jpg,0";
       final playerInfo = defaultData.split(",");
-      playerInfo[10] = imagePath; 
+      playerInfo[11] = imageNumber.toString();
       await file.writeAsString(playerInfo.join(","));
     }
   }
+
+  Future<String> getImageNumber() async {
+    final file = await _localFile;
+    if (await file.exists()) {
+      final contents = await file.readAsString();
+      final playerInfo = contents.split(",");
+      return playerInfo[11];
+    } else {
+      return "0";
+    }
+  }
+
+  Future<void> updatePlayerProfilePicture(String imagePath) async {
+    final file = await _localFile;
+    if (await file.exists()) {
+      final contents = await file.readAsString();
+      final playerInfo = contents.split(",");
+
+      // Update the profile picture
+      playerInfo[10] = imagePath;
+      await file.writeAsString(playerInfo.join(","));
+      print("Profile picture updated in file: $imagePath");
+    } else {
+      // Create the file with default values
+      final defaultData =
+          "Player,false,false,0,0,0,0,0.0,0,0,images/myProfilePic.jpg,0";
+      final playerInfo = defaultData.split(",");
+      playerInfo[10] = imagePath;
+      await file.writeAsString(playerInfo.join(","));
+      print("File created with profile picture: $imagePath");
+    }
+  }
+
   Future<String> getPlayerProfilePictureFromFile() async {
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}/profile_picture.jpg');
     if (await file.exists()) {
-      return file.path; 
+      return file.path;
     } else {
-      return "images/myProfilePic.jpg"; 
+      return "images/myProfilePic.jpg";
     }
   }
 
   Future<Playerinformation> readPlayerInformation() async {
     try {
       final file = await _localFile;
-      String contents = await file.readAsString();
-      List<String> playerInfo = contents.split(",");
-      return Playerinformation(
-        playerName: playerInfo[0],
-        darkMode: playerInfo[1] == "true",
-        usePlayerName: playerInfo[1] == "true",
-        totalGamesPlayed: int.parse(playerInfo[2]),
-        totalGamesWon: int.parse(playerInfo[3]),
-        totalGamesLost: int.parse(playerInfo[4]),
-        totalGamesDrawn: int.parse(playerInfo[5]),
-        winRate: double.parse(playerInfo[6]),
-        currentWinSteak: int.parse(playerInfo[7]),
-        longestWinSteak: int.parse(playerInfo[8]),
-      );
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        debugPrint("File contents: $contents");
+        List<String> playerInfo = contents.split(",");
+
+        if (playerInfo.length < 12) {
+          debugPrint("File corrupted. Recreating with default data.");
+          final defaultData =
+              "Player,false,false,0,0,0,0,0.0,0,0,images/myProfilePic.jpg,0";
+          await file.writeAsString(defaultData);
+          playerInfo = defaultData.split(",");
+        }
+
+        return Playerinformation(
+          playerName: playerInfo[0],
+          darkMode: playerInfo[1] == "true",
+          usePlayerName: playerInfo[2] == "true",
+          totalGamesPlayed: int.parse(playerInfo[3]),
+          totalGamesWon: int.parse(playerInfo[4]),
+          totalGamesLost: int.parse(playerInfo[5]),
+          totalGamesDrawn: int.parse(playerInfo[6]),
+          winRate: double.parse(playerInfo[7]),
+          currentWinSteak: int.parse(playerInfo[8]),
+          longestWinSteak: int.parse(playerInfo[9]),
+          profilePicture: playerInfo[10],
+          imageNumber: int.parse(playerInfo[11]),
+        );
+      } else {
+        debugPrint("File does not exist. Creating with default data.");
+        final defaultData =
+            "Player,false,false,0,0,0,0,0.0,0,0,images/myProfilePic.jpg,0";
+        await file.writeAsString(defaultData);
+        final playerInfo = defaultData.split(",");
+        return Playerinformation(
+          playerName: playerInfo[0],
+          darkMode: playerInfo[1] == "true",
+          usePlayerName: playerInfo[2] == "true",
+          totalGamesPlayed: int.parse(playerInfo[3]),
+          totalGamesWon: int.parse(playerInfo[4]),
+          totalGamesLost: int.parse(playerInfo[5]),
+          totalGamesDrawn: int.parse(playerInfo[6]),
+          winRate: double.parse(playerInfo[7]),
+          currentWinSteak: int.parse(playerInfo[8]),
+          longestWinSteak: int.parse(playerInfo[9]),
+          profilePicture: playerInfo[10],
+          imageNumber: int.parse(playerInfo[11]),
+        );
+      }
     } catch (e) {
+      debugPrint("Error reading file: $e");
       return Playerinformation(
         playerName: "Player",
         darkMode: false,
@@ -105,11 +172,15 @@ class BAScorekeep extends StatelessWidget {
         winRate: 0.0,
         currentWinSteak: 0,
         longestWinSteak: 0,
+        profilePicture: "images/myProfilePic.jpg",
+        imageNumber: 0,
       );
     }
   }
 
   Future<void> updatePlayerInformation({
+    required String player,
+    required bool isDarkMode,
     required int totalGamesPlayed,
     required int totalGamesWon,
     required int totalGamesLost,
@@ -117,14 +188,19 @@ class BAScorekeep extends StatelessWidget {
     required double winRate,
     required int currentWinSteak,
     required int longestWinSteak,
-    required bool usePlayerName, 
+    required bool usePlayerName,
+    required String profilePicture,
+    required int imageNumber,
   }) async {
     final file = await _localFile;
     if (await file.exists()) {
+      debugPrint("Working");
+      debugPrint("File exists: ${file.path}");
+
       final contents = await file.readAsString();
       final playerInfo = contents.split(",");
-
-      
+      playerInfo[0] = player;
+      playerInfo[1] = isDarkMode.toString();
       playerInfo[2] = totalGamesPlayed.toString();
       playerInfo[3] = totalGamesWon.toString();
       playerInfo[4] = totalGamesLost.toString();
@@ -132,13 +208,16 @@ class BAScorekeep extends StatelessWidget {
       playerInfo[6] = winRate.toStringAsFixed(2);
       playerInfo[7] = currentWinSteak.toString();
       playerInfo[8] = longestWinSteak.toString();
-      playerInfo[9] = usePlayerName.toString(); 
+      playerInfo[9] = usePlayerName.toString();
+      playerInfo[10] = profilePicture;
+      playerInfo[11] = imageNumber.toString();
 
       await file.writeAsString(playerInfo.join(","));
+      debugPrint("File contents: ${await file.readAsString()}");
     } else {
-      
+      debugPrint("Uh oh");
       final defaultData =
-          "Player,$isDarkMode,false,0,0,0,0,0.0,0,0"; // Default player data
+          "Player,$isDarkMode,false,0,0,0,0,0.0,0,0,images/myProfilePic.jpg,0"; // Default player data
       final playerInfo = defaultData.split(",");
       playerInfo[2] = totalGamesPlayed.toString();
       playerInfo[3] = totalGamesWon.toString();
@@ -147,23 +226,24 @@ class BAScorekeep extends StatelessWidget {
       playerInfo[6] = winRate.toStringAsFixed(2);
       playerInfo[7] = currentWinSteak.toString();
       playerInfo[8] = longestWinSteak.toString();
-      playerInfo[9] = usePlayerName.toString(); 
+      playerInfo[9] = usePlayerName.toString();
+      playerInfo[10] = profilePicture;
+      playerInfo[11] = imageNumber.toString();
 
       await file.writeAsString(playerInfo.join(","));
     }
   }
 
-  Future <void> updatePlayerName(String playerName) async {
+  Future<void> updatePlayerName(String playerName) async {
     final file = await _localFile;
     if (await file.exists()) {
       final contents = await file.readAsString();
       final playerInfo = contents.split(",");
-      playerInfo[0] = playerName; 
+      playerInfo[0] = playerName;
       await file.writeAsString(playerInfo.join(","));
     } else {
-      
       final defaultData =
-          "Player,$isDarkMode,0,0,0,0,0.0,0,0"; 
+          "Player,$isDarkMode,false,0,0,0,0,0.0,0,0,images/myProfilePic.jpg,0";
       final playerInfo = defaultData.split(",");
       playerInfo[0] = playerName;
       await file.writeAsString(playerInfo.join(","));
@@ -191,7 +271,9 @@ class BAScorekeep extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Directionality(
+                textDirection: TextDirection.ltr,
+                child: Text(snapshot.error.toString()));
           } else if (snapshot.hasData) {
             Playerinformation userDetails = snapshot.data!;
             isDarkMode.value = userDetails.darkMode;
@@ -210,9 +292,9 @@ class BAScorekeep extends StatelessWidget {
                 winRate: userDetails.winRate,
                 currentWinSteak: userDetails.currentWinSteak,
                 longestWinSteak: userDetails.longestWinSteak,
+                profilePicture: userDetails.profilePicture,
+                imageNumber: userDetails.imageNumber,
               );
-              Provider.of<PlayerdetailsProvider>(context, listen: false)
-                  .getPlayerProfilePicture();
             });
 
             return ValueListenableBuilder<bool>(
@@ -222,7 +304,8 @@ class BAScorekeep extends StatelessWidget {
                   theme: getThemeData(isDark ? "darkTheme" : "lightTheme"),
                   initialRoute: '/widgets/gameHistoryScreen',
                   routes: {
-                    '/widgets/gameHistoryScreen': (context) => Gamehistoryscreen(),
+                    '/widgets/gameHistoryScreen': (context) =>
+                        Gamehistoryscreen(),
                     '/widgets/statsPageScreen': (context) => Statspagescreen(),
                     '/widgets/profileScreen': (context) => Profilescreen(),
                   },

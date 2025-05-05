@@ -22,14 +22,18 @@ class _EditprofilescreenState extends State<Editprofilescreen> {
   late bool allowedCameraRollPermission = false;
   String imagePath = "images/myProfilePic.jpg";
   File? imageFile;
+  int imageNumber = 0;
   @override
   void initState() {
     super.initState();
     usePlayerName = Provider.of<PlayerdetailsProvider>(context, listen: false)
         .usePlayerName;
-imagePath = Provider.of<PlayerdetailsProvider>(context, listen: false)
-      .profilePicture;
-      playerName = Provider.of<PlayerdetailsProvider>(context, listen: false).playerName;
+    imagePath = Provider.of<PlayerdetailsProvider>(context, listen: false)
+        .profilePicture;
+    imageNumber =
+        Provider.of<PlayerdetailsProvider>(context, listen: false).imageNumber;
+    playerName =
+        Provider.of<PlayerdetailsProvider>(context, listen: false).playerName;
     getImagePath().then((path) {
       if (path != null) {
         setState(() {
@@ -72,7 +76,9 @@ imagePath = Provider.of<PlayerdetailsProvider>(context, listen: false)
       print('Image selected: ${image.path}');
       final directory = await getApplicationDocumentsDirectory();
       final String newPath = '${directory.path}/profile_picture.jpg';
-
+      imageNumber++;
+      Provider.of<PlayerdetailsProvider>(context, listen: false)
+          .updateImageNumber(imageNumber);
       final File newImage = await File(image.path).copy(newPath);
 
       // Save the image path
@@ -201,6 +207,22 @@ imagePath = Provider.of<PlayerdetailsProvider>(context, listen: false)
                           .updateUsePlayerName(usePlayerName);
                       Provider.of<PlayerdetailsProvider>(context, listen: false)
                           .updateImageFile(imagePath);
+                      final playerData = Provider.of<PlayerdetailsProvider>(
+                          context,
+                          listen: false);
+                      BAScorekeep().updatePlayerInformation(
+                          player: playerData.playerName,
+                          isDarkMode: playerData.darkMode,
+                          totalGamesPlayed: playerData.totalGamesPlayed,
+                          totalGamesWon: playerData.totalGamesWon,
+                          totalGamesLost: playerData.totalGamesLost,
+                          totalGamesDrawn: playerData.totalGamesDrawn,
+                          winRate: playerData.winRate,
+                          currentWinSteak: playerData.currentWinSteak,
+                          longestWinSteak: playerData.longestWinSteak,
+                          usePlayerName: usePlayerName,
+                          profilePicture: playerData.profilePicture,
+                          imageNumber: imageNumber);
                       Navigator.pop(context);
                     },
                     child: Text("Save Changes",

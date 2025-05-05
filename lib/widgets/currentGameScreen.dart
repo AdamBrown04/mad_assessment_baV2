@@ -286,6 +286,10 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
                         currentWinSteak: playerDetailsProvider.currentWinSteak,
                         longestWinSteak: playerDetailsProvider.longestWinSteak,
                         usePlayerName: playerDetailsProvider.usePlayerName,
+                        player: playerDetailsProvider.playerName,
+                        isDarkMode: playerDetailsProvider.darkMode,
+                        profilePicture: playerDetailsProvider.profilePicture,
+                        imageNumber: playerDetailsProvider.imageNumber,
                       );
                       Navigator.push(
                           context,

@@ -46,9 +46,10 @@ class Profilescreen extends StatelessWidget {
                           : AssetImage('images/myProfilePic.jpg') as ImageProvider,
                     ),
                     SizedBox(height: 20),
-                    Text(
-                      Provider.of<PlayerdetailsProvider>(context).playerName,
-                      style: TextStyle(fontSize: 20),
+                    Consumer<PlayerdetailsProvider>(
+                      builder: (context, provider, child) {
+                        return Text(provider.playerName);
+                      },
                     ),
                     SizedBox(height: 20),
                     SizedBox(
@@ -101,7 +102,12 @@ class Profilescreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    // ! REMOVE THIS LATER DEBUGING PURPOSES ONLY
+                    TextButton(onPressed: (){
+                      final playerDetailsProvider = Provider.of<PlayerdetailsProvider>(context, listen: false);
+                      debugPrint("${playerDetailsProvider.playerName}, ${playerDetailsProvider.darkMode}, ${playerDetailsProvider.usePlayerName}, ${playerDetailsProvider.totalGamesPlayed}, ${playerDetailsProvider.totalGamesWon}, ${playerDetailsProvider.totalGamesLost}, ${playerDetailsProvider.totalGamesDrawn}, ${playerDetailsProvider.winRate}, ${playerDetailsProvider.currentWinSteak}, ${playerDetailsProvider.longestWinSteak}, ${playerDetailsProvider.profilePicture}, ${playerDetailsProvider.imageNumber}");
+                    }, child: Text("skjgb"))
                   ],
                 ),
               ),

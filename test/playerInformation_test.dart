@@ -13,7 +13,9 @@ void main(){
     totalGamesDrawn: 0,
     winRate: 0.0,
     currentWinSteak: 0,
-    longestWinSteak: 0
+    longestWinSteak: 0,
+    profilePicture: "images/myProfilePic.jpg",
+    imageNumber: 0,
   );
   //tests fpr getWinRate function
   test('Test getWinRate with no games played', () {

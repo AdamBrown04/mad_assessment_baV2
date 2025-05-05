@@ -9,6 +9,8 @@ class Playerinformation {
   final double winRate;
   int currentWinSteak;
   int longestWinSteak;
+  String profilePicture;
+  int imageNumber;
 
   Playerinformation(
       {required this.playerName,
@@ -20,7 +22,9 @@ class Playerinformation {
       required this.totalGamesDrawn,
       required this.winRate,
       required this.currentWinSteak,
-      required this.longestWinSteak});
+      required this.longestWinSteak,
+      required this.profilePicture,
+      required this.imageNumber});
 
   double getWinRate(int totalGames, int gamesWon,
       int gamesDrawn) {
