@@ -31,9 +31,11 @@ class _EditprofilescreenState extends State<Editprofilescreen> {
         .profilePicture;
     playerName =
         Provider.of<PlayerdetailsProvider>(context, listen: false).playerName;
+
     getImagePath().then((path) {
       if (path != null) {
         setState(() {
+          imagePath = path;
           imageFile = File(path);
         });
       }
@@ -72,14 +74,23 @@ class _EditprofilescreenState extends State<Editprofilescreen> {
     if (image != null) {
       print('Image selected: ${image.path}');
       final directory = await getApplicationDocumentsDirectory();
-      final String newPath = '${directory.path}/profile_picture.jpg';
+
+      // Generate a unique file name using a timestamp
+      final String uniqueFileName = 'profile_picture_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final String newPath = '${directory.path}/$uniqueFileName';
 
       final File newImage = await File(image.path).copy(newPath);
 
-      // Save the image path
+      // Save the unique path persistently
       await saveImagePath(newPath);
-      imagePath = newPath;
+
+      // Update the provider with the new image path
+      Provider.of<PlayerdetailsProvider>(context, listen: false)
+          .updateImageFile(newPath);
+
+      // Update the UI dynamically
       setState(() {
+        imagePath = newPath;
         imageFile = newImage;
       });
 
@@ -110,7 +121,7 @@ class _EditprofilescreenState extends State<Editprofilescreen> {
                   backgroundImage: imagePath != 'images/myProfilePic.jpg' &&
                           imagePath.isNotEmpty
                       ? FileImage(File(imagePath))
-                      : AssetImage('images/myProfilePic.jpg'),
+                      : AssetImage('images/myProfilePic.jpg') as ImageProvider,
                 ),
                 SizedBox(height: 20),
                 SizedBox(

@@ -52,29 +52,26 @@ class BAScorekeep extends StatelessWidget {
   }
 
   Future<void> updatePlayerProfilePicture(String imagePath) async {
-    debugPrint("Updating player profile picture to: $imagePath");
     final file = await _localFile;
     if (await file.exists()) {
       final contents = await file.readAsString();
       final playerInfo = contents.split(",");
-      playerInfo[1] = imagePath;
+      playerInfo[1] = imagePath; // Update the profile picture path
       await file.writeAsString(playerInfo.join(","));
     } else {
-      final defaultData =
-          "false,images/myProfilePic.jpg";
-      final playerInfo = defaultData.split(",");
-      playerInfo[1] = imagePath;
-      await file.writeAsString(playerInfo.join(","));
+      final defaultData = "false,$imagePath"; // Default data with the new path
+      await file.writeAsString(defaultData);
     }
   }
 
   Future<String> getPlayerProfilePictureFromFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/profile_picture.jpg');
+    final file = await _localFile;
     if (await file.exists()) {
-      return file.path;
+      final contents = await file.readAsString();
+      final playerInfo = contents.split(",");
+      return playerInfo[1]; 
     } else {
-      return "images/myProfilePic.jpg";
+      return "images/myProfilePic.jpg"; 
     }
   }
 
