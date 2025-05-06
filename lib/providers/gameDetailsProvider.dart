@@ -35,7 +35,7 @@ class GameDetailsProvider extends ChangeNotifier {
     this.deploymentType = deploymentType;
     this.deploymentZone = deploymentZone;
 
-    notifyListeners(); // Notify listeners of the changes
+    notifyListeners();
   }
 
   void resetGameDetails() {
@@ -50,6 +50,6 @@ class GameDetailsProvider extends ChangeNotifier {
     playerPoints = null;
     opponentPoints = null;
 
-    notifyListeners(); // Notify listeners of the changes
+    notifyListeners();
   }
 }

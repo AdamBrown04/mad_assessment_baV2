@@ -272,10 +272,14 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
                           .incrementTotalGamesPlayed();
                       Provider.of<PlayerdetailsProvider>(context, listen: false)
                           .updateWinRate();
-                          debugPrint("Games Played: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesPlayed}, Games Won: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesWon}, Games Lost: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesLost}, Games Drawn: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesDrawn}");
+                      debugPrint(
+                          "Games Played: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesPlayed}, Games Won: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesWon}, Games Lost: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesLost}, Games Drawn: ${Provider.of<PlayerdetailsProvider>(context, listen: false).totalGamesDrawn}");
                       Databaseservices.updatePlayerInformation(
                           Provider.of<PlayerdetailsProvider>(context,
-                              listen: false), Provider.of<PlayerdetailsProvider>(context, listen: false).playerID);
+                              listen: false),
+                          Provider.of<PlayerdetailsProvider>(context,
+                                  listen: false)
+                              .playerID);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -178,46 +178,14 @@ class _GameoverviewscreenState extends State<Gameoverviewscreen> {
                             ],
                           ),
                         ),
-                        /*
-                      In Bolt Action not all missions score the same, this section would show how the points have been scored per objective
-                      some missions have multiple scoring actions so this will break down the points scored per objective throughout the game
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            widget.playerName,
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            widget.opponentName,
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      ),
-                      */
                       ],
                     ),
                   )),
             ),
             Spacer(),
             Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 20, left: 10, right: 10),
+              padding:
+                  EdgeInsets.only(top: 10, bottom: 20, left: 10, right: 10),
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.075,
                 child: TextButton(
@@ -228,13 +196,14 @@ class _GameoverviewscreenState extends State<Gameoverviewscreen> {
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                       Navigator.pushReplacementNamed(context, '/widgets/gameHistoryScreen');
+                      Navigator.pushReplacementNamed(
+                          context, '/widgets/gameHistoryScreen');
                     },
                     child: Text("Return to Game History",
                         style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            ))),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ))),
               ),
             ),
           ],

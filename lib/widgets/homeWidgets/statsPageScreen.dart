@@ -11,7 +11,6 @@ class Statspagescreen extends StatefulWidget {
 }
 
 class _StatspagescreenState extends State<Statspagescreen> {
-
   @override
   Widget build(BuildContext context) {
     return navbar(

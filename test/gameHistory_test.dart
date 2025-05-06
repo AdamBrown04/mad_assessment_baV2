@@ -25,7 +25,7 @@ void main() {
   test('Test getFormattedDate', () {
     expect(gameHistory.getFormattedDate, "04/07/2025");
   });
-  test("Test getFormattedDate with incorrect date expected", (){
+  test("Test getFormattedDate with incorrect date expected", () {
     expect(gameHistory.getFormattedDate, "04/07/2024");
   });
 
@@ -46,14 +46,14 @@ void main() {
     gameHistory.playerScore = 10;
     gameHistory.opponentScore = 10;
     gameHistory.findIfPlayerWon();
-    expect(gameHistory.isPlayerWinner, false); 
+    expect(gameHistory.isPlayerWinner, false);
   });
 
   test("Test findIfPlayerWon with incorrect value", () {
     gameHistory.playerScore = 5;
     gameHistory.opponentScore = 5;
     gameHistory.findIfPlayerWon();
-    expect(gameHistory.isPlayerWinner, true); 
+    expect(gameHistory.isPlayerWinner, true);
   });
 
   // Test for outputWinner
@@ -69,7 +69,7 @@ void main() {
     gameHistory.isPlayerWinner = false;
     gameHistory.playerScore = 10;
     gameHistory.opponentScore = 10;
-    expect(gameHistory.outputWinner(), "Draw"); 
+    expect(gameHistory.outputWinner(), "Draw");
   });
   test("Test outputWinner with player loss but expecting win", () {
     gameHistory.isPlayerWinner = false;

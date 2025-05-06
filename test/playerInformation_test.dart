@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mad_assessment_ba/models/playerInformation.dart';
 
-
-void main(){
+void main() {
   Playerinformation playerInfo = Playerinformation(
     darkMode: false,
     profilePicture: "images/myProfilePic.jpg",
@@ -33,13 +32,13 @@ void main(){
   });
 
   //tests for incrementGamesWon function
-  test("Test incrementGamesWon", (){
+  test("Test incrementGamesWon", () {
     playerInfo.incrementGamesWon();
     expect(playerInfo.totalGamesWon, 1);
     expect(playerInfo.currentWinSteak, 1);
     expect(playerInfo.longestWinSteak, 1);
   });
-  test("Test incrementGamesWon multiple times", (){
+  test("Test incrementGamesWon multiple times", () {
     playerInfo.incrementGamesWon();
     playerInfo.incrementGamesWon();
     expect(playerInfo.totalGamesWon, 2);
@@ -48,12 +47,12 @@ void main(){
   });
 
   //tests for incrementGamesLost function
-  test("Test incrementGamesLost", (){
+  test("Test incrementGamesLost", () {
     playerInfo.incrementGamesLost();
     expect(playerInfo.totalGamesLost, 1);
     expect(playerInfo.currentWinSteak, 0);
   });
-  test("Test incrementGamesLost multiple times", (){
+  test("Test incrementGamesLost multiple times", () {
     playerInfo.incrementGamesLost();
     playerInfo.incrementGamesLost();
     expect(playerInfo.totalGamesLost, 2);
@@ -61,12 +60,12 @@ void main(){
   });
 
   //tests for incrementGamesDrawn function
-  test("Test incrementGamesDrawn", (){
+  test("Test incrementGamesDrawn", () {
     playerInfo.incrementGamesDrawn();
     expect(playerInfo.totalGamesDrawn, 1);
     expect(playerInfo.currentWinSteak, 0);
   });
-  test("Test incrementGamesDrawn multiple times", (){
+  test("Test incrementGamesDrawn multiple times", () {
     playerInfo.incrementGamesDrawn();
     playerInfo.incrementGamesDrawn();
     expect(playerInfo.totalGamesDrawn, 2);
@@ -74,7 +73,7 @@ void main(){
   });
 
   //test resetting currentWinStreak
-  test("Test resetting currentWinStreak after a loss", (){
+  test("Test resetting currentWinStreak after a loss", () {
     playerInfo.incrementGamesWon();
     playerInfo.incrementGamesWon();
     playerInfo.incrementGamesLost();
@@ -83,7 +82,7 @@ void main(){
     expect(playerInfo.currentWinSteak, 0);
     expect(playerInfo.longestWinSteak, 2);
   });
-  test("Test resetting currentWinStreak after a draw", (){
+  test("Test resetting currentWinStreak after a draw", () {
     playerInfo.incrementGamesWon();
     playerInfo.incrementGamesWon();
     playerInfo.incrementGamesDrawn();
@@ -92,5 +91,4 @@ void main(){
     expect(playerInfo.currentWinSteak, 0);
     expect(playerInfo.longestWinSteak, 2);
   });
-  
 }

@@ -29,7 +29,6 @@ class _GamehistoryscreenState extends State<Gamehistoryscreen> {
     super.initState();
     displayAllGameRecords();
   }
-  
 
   @override
   Widget build(BuildContext context) {

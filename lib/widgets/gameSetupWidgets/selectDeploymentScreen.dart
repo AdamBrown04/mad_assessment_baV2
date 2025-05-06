@@ -24,7 +24,6 @@ class _SelectdeploymentscreenState extends State<Selectdeploymentscreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    // Retrieve arguments from ModalRoute
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
@@ -36,7 +35,7 @@ class _SelectdeploymentscreenState extends State<Selectdeploymentscreen> {
     }
   }
 
-  bool? VerifyFullInput() {
+  bool? verifyFullInput() {
     if (!isLong && !isQuaters) {
       showDialog(
         context: context,
@@ -55,7 +54,7 @@ class _SelectdeploymentscreenState extends State<Selectdeploymentscreen> {
           );
         },
       );
-      return false; 
+      return false;
     }
 
     if (!isMeetingEngagement && !isPreparedPositions && !isFogOfWar) {
@@ -76,9 +75,8 @@ class _SelectdeploymentscreenState extends State<Selectdeploymentscreen> {
           );
         },
       );
-      return false; 
-    }
-    else{
+      return false;
+    } else {
       return true;
     }
   }
@@ -271,7 +269,7 @@ class _SelectdeploymentscreenState extends State<Selectdeploymentscreen> {
                 ),
                 onPressed: () {
                   bool canContinue = true;
-                  canContinue = VerifyFullInput()!;
+                  canContinue = verifyFullInput()!;
                   if (canContinue) {
                     Navigator.pop(context);
                     Navigator.push(

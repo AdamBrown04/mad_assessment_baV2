@@ -76,7 +76,7 @@ class _SelectgametypescreenState extends State<Selectgametypescreen> {
                           'gameType': "Custom",
                           'mission': "Custom Mission",
                           'deploymentType': "Custom Deployment",
-                          'deploymentZone' : "Custom Zone",
+                          'deploymentZone': "Custom Zone",
                         },
                       ),
                     ),

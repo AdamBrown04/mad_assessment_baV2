@@ -29,7 +29,7 @@ class _GamepreviewscreenState extends State<Gamepreviewscreen> {
     opponentArmy: "Unknown",
     playerPoints: 0,
     opponentPoints: 0,
-    gameID: 0, 
+    gameID: 0,
   ); // Provide a default value
   bool isLoading = true;
 
@@ -46,7 +46,7 @@ class _GamepreviewscreenState extends State<Gamepreviewscreen> {
       if (gameDataMap != null) {
         setState(() {
           gameData = Gamehistory.fromMap(gameDataMap);
-          isLoading = false; // Data is loaded
+          isLoading = false; 
         });
       } else {
         throw Exception("Game data not found");
@@ -54,7 +54,7 @@ class _GamepreviewscreenState extends State<Gamepreviewscreen> {
     } catch (e) {
       debugPrint("Error fetching game data: $e");
       setState(() {
-        isLoading = false; // Stop loading even if there's an error
+        isLoading = false; 
       });
     }
   }
@@ -80,7 +80,8 @@ class _GamepreviewscreenState extends State<Gamepreviewscreen> {
               playerPoints: gameData.playerPoints,
               opponentName: gameData.opponentName,
               playerName: gameData.playerName,
-              gameTurn: gameData.isPlayerWinner ? "Player's Turn" : "Opponent's Turn",
+              gameTurn:
+                  gameData.isPlayerWinner ? "Player's Turn" : "Opponent's Turn",
               opponentScore: gameData.opponentScore,
               playerScore: gameData.playerScore,
               playedDay: gameData.playedDay,

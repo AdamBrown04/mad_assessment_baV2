@@ -16,7 +16,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-
   void userConfirmationGameHistory() {
     showDialog(
       context: context,
@@ -28,14 +27,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); 
+                Navigator.of(context).pop();
               },
               child: const Text("Cancel"),
             ),
             TextButton(
               onPressed: () {
-                Databaseservices.resetGameTable(); // Reset player information
-                Navigator.of(context).pop(); 
+                Databaseservices.resetGameTable();
+                Navigator.of(context).pop();
               },
               child: const Text("Reset"),
             ),
@@ -49,19 +48,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final directory = await getApplicationDocumentsDirectory();
     return File('${directory.path}/playerInformation.txt');
   }
-  
-  void userConfirmationProfile(){
+
+  void userConfirmationProfile() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text("Confirmation"),
-          content:
-              const Text("Are you sure you want to reset the profile?"),
+          content: const Text("Are you sure you want to reset the profile?"),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); 
+                Navigator.of(context).pop();
               },
               child: const Text("Cancel"),
             ),
@@ -69,12 +67,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 final file = _localFile;
                 file.then((value) {
-                  value.writeAsString("false,images/myProfilePic.jpg"); 
+                  value.writeAsString("false,images/myProfilePic.jpg");
                 });
                 Provider.of<PlayerdetailsProvider>(context, listen: false)
-                    .resetPlayerDetails(); 
-                Databaseservices.resetPlayerTable(); 
-                Navigator.of(context).pop(); 
+                    .resetPlayerDetails();
+                Databaseservices.resetPlayerTable();
+                Navigator.of(context).pop();
               },
               child: const Text("Reset"),
             ),
@@ -107,8 +105,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       BAScorekeep.isDarkMode.value =
                           !BAScorekeep.isDarkMode.value;
                     });
-                    BAScorekeep().updateDarkModePreference(
-                        BAScorekeep.isDarkMode.value); // Save to file
+                    BAScorekeep()
+                        .updateDarkModePreference(BAScorekeep.isDarkMode.value);
                   },
                   style: TextButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -137,10 +135,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               setState(() {
                                 isDarkMode = value;
                               });
-                              BAScorekeep.isDarkMode.value =
-                                  value; // Update theme
-                              BAScorekeep().updateDarkModePreference(
-                                  value); // Save to file
+                              BAScorekeep.isDarkMode.value = value;
+                              BAScorekeep().updateDarkModePreference(value);
                             },
                           );
                         },
@@ -150,39 +146,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-            Padding(padding: const EdgeInsets.all(10),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.1,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Editprofilescreen(),
+                      ),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Icon(Icons.person_outline, size: 30),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          "Edit Profile",
+                          style: TextStyle(fontSize: 17.5),
+                        ),
+                      ),
+                      Spacer(),
+                      Icon(Icons.arrow_forward, size: 30),
+                    ],
                   ),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Editprofilescreen(),
-                    ),
-                  );
-                },
-                child: Row(
-                  children: [
-                    Icon(Icons.person_outline, size: 30),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Text(
-                        "Edit Profile",
-                        style: TextStyle(fontSize: 17.5),
-                      ),
-                    ),
-                    Spacer(),
-                    Icon(Icons.arrow_forward, size: 30),
-                  ],
-                ),
               ),
-            ),),
+            ),
             Padding(
               padding: const EdgeInsets.all(10),
               child: SizedBox(
@@ -196,7 +194,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onPressed: () {
                       userConfirmationGameHistory();
                     },
-                    child: Text("Reset Game History", 
+                    child: Text("Reset Game History",
                         style: TextStyle(fontSize: 17.5))),
               ),
             ),
@@ -213,7 +211,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onPressed: () {
                       userConfirmationProfile();
                     },
-                    child: Text("Reset Profile", 
+                    child: Text("Reset Profile",
                         style: TextStyle(fontSize: 17.5))),
               ),
             ),

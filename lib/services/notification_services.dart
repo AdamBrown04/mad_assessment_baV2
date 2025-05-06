@@ -2,11 +2,10 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class NotificationServices {
   static Future<void> initializeNotifications() async {
     await AwesomeNotifications().initialize(
-      null, 
+      null,
       [
         NotificationChannel(
           channelKey: 'takePhoto_channel',
@@ -64,7 +63,7 @@ class NotificationServices {
   }
 
   static Future<void> launchCameraApp() async {
-        final ImagePicker picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     final XFile? photo = await picker.pickImage(source: ImageSource.camera);
 
     if (photo != null) {

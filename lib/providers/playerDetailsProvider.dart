@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/main.dart';
 
-class PlayerdetailsProvider extends ChangeNotifier{
+class PlayerdetailsProvider extends ChangeNotifier {
   int playerID = 1;
   String playerName = "Player";
   bool darkMode = false;
@@ -36,7 +36,7 @@ class PlayerdetailsProvider extends ChangeNotifier{
     this.currentWinSteak = currentWinSteak;
     this.longestWinSteak = longestWinSteak;
     this.usePlayerName = usePlayerName;
-    notifyListeners(); 
+    notifyListeners();
   }
 
   void resetPlayerDetails() {
@@ -51,8 +51,8 @@ class PlayerdetailsProvider extends ChangeNotifier{
     winRate = 0.0;
     currentWinSteak = 0;
     longestWinSteak = 0;
-    
-    notifyListeners(); 
+
+    notifyListeners();
   }
 
   void incrementTotalGamesPlayed() {
@@ -61,24 +61,24 @@ class PlayerdetailsProvider extends ChangeNotifier{
   }
 
   void incrementTotalGamesWon() {
-      totalGamesWon++;
-      currentWinSteak++;
-      if (currentWinSteak >longestWinSteak) {
-        longestWinSteak = currentWinSteak;
-      }
-      notifyListeners(); 
+    totalGamesWon++;
+    currentWinSteak++;
+    if (currentWinSteak > longestWinSteak) {
+      longestWinSteak = currentWinSteak;
+    }
+    notifyListeners();
   }
 
   void incrementTotalGamesLost() {
-      totalGamesLost++;
-      currentWinSteak = 0; 
-      notifyListeners(); 
+    totalGamesLost++;
+    currentWinSteak = 0;
+    notifyListeners();
   }
 
   void incrementTotalGamesDrawn() {
-      totalGamesDrawn++;
-      currentWinSteak = 0;
-      notifyListeners(); 
+    totalGamesDrawn++;
+    currentWinSteak = 0;
+    notifyListeners();
   }
 
   void updateWinRate() {
@@ -88,29 +88,29 @@ class PlayerdetailsProvider extends ChangeNotifier{
     } else {
       winRate = 0.0;
     }
-    notifyListeners(); 
+    notifyListeners();
   }
 
   void updatePlayerName(String name) {
     playerName = name;
-    notifyListeners(); 
+    notifyListeners();
   }
 
   void updateUsePlayerName(bool value) {
     usePlayerName = value;
-    notifyListeners(); 
+    notifyListeners();
   }
 
   void updateImageFile(String filePath) {
     profilePicture = filePath;
     BAScorekeep().updatePlayerProfilePicture(profilePicture);
-    notifyListeners(); 
+    notifyListeners();
   }
 
   void getPlayerProfilePicture() {
     BAScorekeep().getPlayerProfilePictureFromFile().then((value) {
       profilePicture = value;
-      notifyListeners(); 
+      notifyListeners();
     });
   }
 }

@@ -76,27 +76,25 @@ class _EditprofilescreenState extends State<Editprofilescreen> {
       final directory = await getApplicationDocumentsDirectory();
 
       // Generate a unique file name using a timestamp
-      final String uniqueFileName = 'profile_picture_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final String uniqueFileName =
+          'profile_picture_${DateTime.now().millisecondsSinceEpoch}.jpg';
       final String newPath = '${directory.path}/$uniqueFileName';
 
       final File newImage = await File(image.path).copy(newPath);
 
-      // Save the unique path persistently
       await saveImagePath(newPath);
 
-      // Update the provider with the new image path
       Provider.of<PlayerdetailsProvider>(context, listen: false)
           .updateImageFile(newPath);
 
-      // Update the UI dynamically
       setState(() {
         imagePath = newPath;
         imageFile = newImage;
       });
 
-      print('Image saved to: ${newImage.path}');
+      debugPrint('Image saved to: ${newImage.path}');
     } else {
-      print('No image selected.');
+      debugPrint('No image selected.');
     }
   }
 
@@ -214,7 +212,10 @@ class _EditprofilescreenState extends State<Editprofilescreen> {
                           .updateImageFile(imagePath);
                       Databaseservices.updatePlayerInformation(
                           Provider.of<PlayerdetailsProvider>(context,
-                              listen: false), Provider.of<PlayerdetailsProvider>(context, listen: false).playerID);
+                              listen: false),
+                          Provider.of<PlayerdetailsProvider>(context,
+                                  listen: false)
+                              .playerID);
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Changes saved successfully')),

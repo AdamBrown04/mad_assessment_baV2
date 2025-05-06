@@ -52,7 +52,7 @@ class Databaseservices {
     await db.execute(sqlPlayer);
   }
 
-  static Future<void> resetDatabase() async{
+  static Future<void> resetDatabase() async {
     final db = await _openDatabase();
     await db.execute('DROP TABLE IF EXISTS game_history');
     await db.execute('DROP TABLE IF EXISTS player_information');
@@ -110,8 +110,10 @@ class Databaseservices {
     final maxID = result.first['maxID'] as int?;
     return (maxID ?? 0) + 1; // If no records exist, start with 1
   }
+
 //player information database operations
-  static Future<void> updatePlayerInformation(PlayerdetailsProvider playerInfo, int playerID) async{
+  static Future<void> updatePlayerInformation(
+      PlayerdetailsProvider playerInfo, int playerID) async {
     final db = await _openDatabase();
     String sql = '''
     INSERT OR REPLACE INTO player_information (playerID ,playerName, usePlayerName, totalGamesPlayed, totalGamesWon, totalGamesLost, totalGamesDrawn, winRate, currentWinSteak, longestWinSteak) 
@@ -130,22 +132,23 @@ class Databaseservices {
     ]);
   }
 
-  static Future<void> getPlayerInformation(PlayerdetailsProvider playerDetails) async {
+  static Future<void> getPlayerInformation(
+      PlayerdetailsProvider playerDetails) async {
     final db = await _openDatabase();
     List<Map<String, dynamic>> result = await db.query('player_information');
 
     if (result.isNotEmpty) {
       // Safely cast or parse each field to the desired type
       playerDetails.updatePlayerDetails(
-        playerName: result.first['playerName']?.toString() ?? "Player", // Ensure String
-        usePlayerName: (result.first['usePlayerName'] as int?) == 1, // Ensure bool
-        totalGamesPlayed: (result.first['totalGamesPlayed'] as int?) ?? 0, // Ensure int
-        totalGamesWon: (result.first['totalGamesWon'] as int?) ?? 0, // Ensure int
-        totalGamesLost: (result.first['totalGamesLost'] as int?) ?? 0, // Ensure int
-        totalGamesDrawn: (result.first['totalGamesDrawn'] as int?) ?? 0, // Ensure int
-        winRate: (result.first['winRate'] as num?)?.toDouble() ?? 0.0, // Ensure double
-        currentWinSteak: (result.first['currentWinSteak'] as int?) ?? 0, // Ensure int
-        longestWinSteak: (result.first['longestWinSteak'] as int?) ?? 0, // Ensure int
+        playerName: result.first['playerName']?.toString() ?? "Player",
+        usePlayerName: (result.first['usePlayerName'] as int?) == 1,
+        totalGamesPlayed: (result.first['totalGamesPlayed'] as int?) ?? 0,
+        totalGamesWon: (result.first['totalGamesWon'] as int?) ?? 0,
+        totalGamesLost: (result.first['totalGamesLost'] as int?) ?? 0,
+        totalGamesDrawn: (result.first['totalGamesDrawn'] as int?) ?? 0,
+        winRate: (result.first['winRate'] as num?)?.toDouble() ?? 0.0,
+        currentWinSteak: (result.first['currentWinSteak'] as int?) ?? 0,
+        longestWinSteak: (result.first['longestWinSteak'] as int?) ?? 0,
       );
     } else {
       debugPrint("No player information found in the database.");

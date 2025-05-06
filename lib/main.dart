@@ -39,14 +39,12 @@ class BAScorekeep extends StatelessWidget {
     if (await file.exists()) {
       final contents = await file.readAsString();
       final playerInfo = contents.split(",");
-      playerInfo[0] = value.toString(); // Update darkMode value
+      playerInfo[0] = value.toString();
       await file.writeAsString(playerInfo.join(","));
     } else {
-      // Create the file with default values and update darkMode
-      final defaultData =
-          "false,images/myProfilePic.jpg"; // Default player data
+      final defaultData = "false,images/myProfilePic.jpg";
       final playerInfo = defaultData.split(",");
-      playerInfo[0] = value.toString(); // Update darkMode value
+      playerInfo[0] = value.toString();
       await file.writeAsString(playerInfo.join(","));
     }
   }
@@ -56,10 +54,10 @@ class BAScorekeep extends StatelessWidget {
     if (await file.exists()) {
       final contents = await file.readAsString();
       final playerInfo = contents.split(",");
-      playerInfo[1] = imagePath; // Update the profile picture path
+      playerInfo[1] = imagePath;
       await file.writeAsString(playerInfo.join(","));
     } else {
-      final defaultData = "false,$imagePath"; // Default data with the new path
+      final defaultData = "false,$imagePath";
       await file.writeAsString(defaultData);
     }
   }
@@ -69,9 +67,9 @@ class BAScorekeep extends StatelessWidget {
     if (await file.exists()) {
       final contents = await file.readAsString();
       final playerInfo = contents.split(",");
-      return playerInfo[1]; 
+      return playerInfo[1];
     } else {
-      return "images/myProfilePic.jpg"; 
+      return "images/myProfilePic.jpg";
     }
   }
 
@@ -119,7 +117,6 @@ class BAScorekeep extends StatelessWidget {
             Playerinformation userDetails = snapshot.data!;
             isDarkMode.value = userDetails.darkMode;
 
-            // Use a post-frame callback to update the provider
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Databaseservices.getPlayerInformation(
                 Provider.of<PlayerdetailsProvider>(context, listen: false),

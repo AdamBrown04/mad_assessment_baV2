@@ -75,7 +75,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
             Divider(height: 1, color: Colors.grey),
             ListTile(
               title: Text("Envelopment"),
-              subtitle: Text("The attacker must try to move their units into the defender's deployment zone or off their table edge"),
+              subtitle: Text(
+                  "The attacker must try to move their units into the defender's deployment zone or off their table edge"),
               trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.pop(context);
@@ -123,7 +124,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
             Divider(height: 1, color: Colors.grey),
             ListTile(
               title: Text("Point Defence"),
-              subtitle: Text("The attacker must try to capture three objectives, the defender must try to stop them"),
+              subtitle: Text(
+                  "The attacker must try to capture three objectives, the defender must try to stop them"),
               trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.pop(context);
@@ -147,7 +149,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
             Divider(height: 1, color: Colors.grey),
             ListTile(
               title: Text("Land Grab"),
-              subtitle: Text("Attempt to sieze the most table quarters while also trying to destroy your opponent's units"),
+              subtitle: Text(
+                  "Attempt to sieze the most table quarters while also trying to destroy your opponent's units"),
               trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.pop(context);
@@ -171,7 +174,8 @@ class _NarrativescenarioscreenState extends State<Narrativescenarioscreen> {
             Divider(height: 1, color: Colors.grey),
             ListTile(
               title: Text("Surrounded!"),
-              subtitle: Text("Attempt to destroy the enemy whilst preserving your own"),
+              subtitle: Text(
+                  "Attempt to destroy the enemy whilst preserving your own"),
               trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.pop(context);

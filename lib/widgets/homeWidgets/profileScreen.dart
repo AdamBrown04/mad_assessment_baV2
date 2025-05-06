@@ -41,9 +41,15 @@ class Profilescreen extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 50,
-                      backgroundImage: Provider.of<PlayerdetailsProvider>(context).profilePicture != 'images/myProfilePic.jpg'
-                          ? FileImage(File(Provider.of<PlayerdetailsProvider>(context).profilePicture))
-                          : AssetImage('images/myProfilePic.jpg') as ImageProvider,
+                      backgroundImage:
+                          Provider.of<PlayerdetailsProvider>(context)
+                                      .profilePicture !=
+                                  'images/myProfilePic.jpg'
+                              ? FileImage(File(
+                                  Provider.of<PlayerdetailsProvider>(context)
+                                      .profilePicture))
+                              : AssetImage('images/myProfilePic.jpg')
+                                  as ImageProvider,
                     ),
                     SizedBox(height: 20),
                     Text(

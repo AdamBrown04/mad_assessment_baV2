@@ -65,7 +65,6 @@ class _SetupplayerdetailsforgamescreenState
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    // Retrieve arguments from ModalRoute
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
@@ -189,7 +188,6 @@ class _SetupplayerdetailsforgamescreenState
           });
       return;
     } else {
-      // Update the shared data using the provider
       Provider.of<GameDetailsProvider>(context, listen: false)
           .updateGameDetails(
         playerName: playerName ?? "Player",

@@ -74,7 +74,8 @@ class MyThemes {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(const Color.fromARGB(119, 55, 55, 55)),
+        backgroundColor:
+            MaterialStateProperty.all(const Color.fromARGB(119, 55, 55, 55)),
         iconColor: MaterialStateProperty.all(Colors.white),
         foregroundColor: MaterialStateProperty.all(Colors.white),
       ),
