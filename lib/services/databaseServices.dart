@@ -4,6 +4,7 @@ import 'package:mad_assessment_ba/providers/playerDetailsProvider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+//generic database operations
 class Databaseservices {
   static Future<Database> _openDatabase() async {
     final database_path = await getDatabasesPath();
@@ -12,7 +13,6 @@ class Databaseservices {
   }
 
   static Future<void> createDatabase(Database db, int version) async {
-    // Create the game_history table
     String sqlGame = '''
     CREATE TABLE IF NOT EXISTS game_history (
       gameID INTEGER PRIMARY KEY,
@@ -35,7 +35,6 @@ class Databaseservices {
   ''';
     await db.execute(sqlGame);
 
-    // Create the player_information table
     String sqlPlayer = '''
     CREATE TABLE IF NOT EXISTS player_information (
       playerID INTEGER PRIMARY KEY,
@@ -51,6 +50,13 @@ class Databaseservices {
     )
   ''';
     await db.execute(sqlPlayer);
+  }
+
+  static Future<void> resetDatabase() async{
+    final db = await _openDatabase();
+    await db.execute('DROP TABLE IF EXISTS game_history');
+    await db.execute('DROP TABLE IF EXISTS player_information');
+    await createDatabase(db, 1);
   }
 
 //database operations for games
@@ -91,7 +97,7 @@ class Databaseservices {
     return db.query('game_history');
   }
 
-  static Future<void> resetDatabase() async {
+  static Future<void> resetGameTable() async {
     final db = await _openDatabase();
     await db.execute('DROP TABLE IF EXISTS game_history');
     await createDatabase(db, 1);
@@ -144,5 +150,11 @@ class Databaseservices {
     } else {
       debugPrint("No player information found in the database.");
     }
+  }
+
+  static Future<void> resetPlayerTable() async {
+    final db = await _openDatabase();
+    await db.execute('DROP TABLE IF EXISTS player_information');
+    await createDatabase(db, 1);
   }
 }

@@ -28,14 +28,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop(); 
               },
               child: const Text("Cancel"),
             ),
             TextButton(
               onPressed: () {
-                Databaseservices.resetDatabase(); // Reset player information
-                Navigator.of(context).pop(); // Close the dialog
+                Databaseservices.resetGameTable(); // Reset player information
+                Navigator.of(context).pop(); 
               },
               child: const Text("Reset"),
             ),
@@ -69,10 +69,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 final file = _localFile;
                 file.then((value) {
-                  value.writeAsString("Player,false,0,0,0,0,0.0,0,0");
+                  value.writeAsString("false,images/myProfilePic.jpg"); 
                 });
                 Provider.of<PlayerdetailsProvider>(context, listen: false)
                     .resetPlayerDetails(); 
+                Databaseservices.resetPlayerTable(); 
                 Navigator.of(context).pop(); 
               },
               child: const Text("Reset"),
