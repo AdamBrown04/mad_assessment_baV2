@@ -18,6 +18,7 @@ class Gameoverviewscreen extends StatefulWidget {
     required this.mission,
     required this.gameType,
     required this.deploymentZone,
+    required this.gameDescription,
   });
 
   final dynamic opponentPoints;
@@ -34,6 +35,7 @@ class Gameoverviewscreen extends StatefulWidget {
   final dynamic mission;
   final dynamic gameType;
   final dynamic deploymentZone;
+  final dynamic gameDescription;
 
   @override
   State<Gameoverviewscreen> createState() => _GameoverviewscreenState();
@@ -52,6 +54,14 @@ class _GameoverviewscreenState extends State<Gameoverviewscreen> {
       return "Draw";
     } else {
       return "Loss";
+    }
+  }
+
+  String useGameDescription() {
+    if (widget.gameDescription == "Game Description") {
+      return "No game description provided";
+    } else {
+      return widget.gameDescription;
     }
   }
 
@@ -92,23 +102,26 @@ class _GameoverviewscreenState extends State<Gameoverviewscreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    widget.playerName,
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                  Text(
-                                    widget.playerArmy,
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                  Text(
-                                    "${widget.playerPoints} points",
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ],
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      widget.playerName,
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                    Text(
+                                      widget.playerArmy,
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                    Text(
+                                      "${widget.playerPoints} points",
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             Align(
@@ -130,27 +143,32 @@ class _GameoverviewscreenState extends State<Gameoverviewscreen> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    widget.opponentName,
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                  Text(
-                                    widget.opponentArmy,
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                  Text(
-                                    "${widget.opponentPoints} points",
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ],
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      widget.opponentName,
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                    Text(
+                                      widget.opponentArmy,
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                    Text(
+                                      "${widget.opponentPoints} points",
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
                         ),
+                        Padding(padding: EdgeInsets.all(8),
+                        child: Text("Game details", style: TextStyle(fontSize: 20),),),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
@@ -176,6 +194,20 @@ class _GameoverviewscreenState extends State<Gameoverviewscreen> {
                                 style: TextStyle(fontSize: 15),
                               ),
                             ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Game Description",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            useGameDescription(),
+                            style: TextStyle(fontSize: 15),
                           ),
                         ),
                       ],

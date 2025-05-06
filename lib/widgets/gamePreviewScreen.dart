@@ -46,7 +46,7 @@ class _GamepreviewscreenState extends State<Gamepreviewscreen> {
       if (gameDataMap != null) {
         setState(() {
           gameData = Gamehistory.fromMap(gameDataMap);
-          isLoading = false; 
+          isLoading = false;
         });
       } else {
         throw Exception("Game data not found");
@@ -54,7 +54,7 @@ class _GamepreviewscreenState extends State<Gamepreviewscreen> {
     } catch (e) {
       debugPrint("Error fetching game data: $e");
       setState(() {
-        isLoading = false; 
+        isLoading = false;
       });
     }
   }
@@ -68,9 +68,57 @@ class _GamepreviewscreenState extends State<Gamepreviewscreen> {
     }
 
     return ListTile(
-      title: Text("${gameData.playerName} vs ${gameData.opponentName}"),
-      subtitle: Text(
-          "Score: ${gameData.playerScore} - ${gameData.opponentScore}\nDate: ${gameData.getFormattedDate}"),
+      title: Text("Date: ${gameData.getFormattedDate}",
+          style: TextStyle(fontSize: 13)),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.3,
+            child: Column(
+              children: [
+                Text(
+                  gameData.playerName,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                Text(
+                  gameData.playerArmy,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+              ],
+            ),
+          ),
+          Center(
+            child: Column(
+              children: [
+                Text(
+                  "${gameData.playerScore} - ${gameData.opponentScore}",
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                ),
+                Text(
+                  gameData.outputWinner(),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.3,
+            child: Column(
+              children: [
+                Text(
+                  gameData.opponentName,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                Text(
+                  gameData.opponentArmy,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
       onTap: () {
         Navigator.push(
           context,
@@ -91,6 +139,7 @@ class _GamepreviewscreenState extends State<Gamepreviewscreen> {
               deploymentZone: gameData.deploymentZone,
               opponentArmy: gameData.opponentArmy,
               playerArmy: gameData.playerArmy,
+              gameDescription: gameData.gameDescription,
             ),
           ),
         );

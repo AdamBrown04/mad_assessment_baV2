@@ -298,6 +298,7 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
                                     mission: widget.mission,
                                     gameType: widget.gameType,
                                     deploymentZone: widget.deploymentZone,
+                                    gameDescription: widget.gameDescription,
                                   )));
                     },
                     child: Text("End Game", style: TextStyle(fontSize: 20))),
