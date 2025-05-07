@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/providers/gameDetailsProvider.dart';
 import 'package:mad_assessment_ba/widgets/currentGameScreen.dart';
@@ -287,6 +288,10 @@ class _NewgamescreenState extends State<Newgamescreen> {
                     //The reason the if statement is only for playerName is because to have filled out the playerName field
                     //means that the user has filled out all other information for the game due to other verification of inputs
                     if (playerName != "Player") {
+                      //source for sound effect https://sound-effects.bbcrewind.co.uk/search?q=07037497
+                      final audioPlayer = AudioPlayer();
+                      audioPlayer
+                          .play(AssetSource('audio/planeSoundEffect.mp3'));
                       Navigator.pop(context);
                       Navigator.push(
                           context,

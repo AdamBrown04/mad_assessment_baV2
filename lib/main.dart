@@ -42,7 +42,7 @@ class BAScorekeep extends StatelessWidget {
       playerInfo[0] = value.toString();
       await file.writeAsString(playerInfo.join(","));
     } else {
-      final defaultData = "false,images/myProfilePic.jpg";
+      final defaultData = "false,assets/images/myProfilePic.jpg";
       final playerInfo = defaultData.split(",");
       playerInfo[0] = value.toString();
       await file.writeAsString(playerInfo.join(","));
@@ -69,7 +69,7 @@ class BAScorekeep extends StatelessWidget {
       final playerInfo = contents.split(",");
       return playerInfo[1];
     } else {
-      return "images/myProfilePic.jpg";
+      return "assets/images/myProfilePic.jpg";
     }
   }
 
@@ -86,7 +86,7 @@ class BAScorekeep extends StatelessWidget {
     } catch (e) {
       return Playerinformation(
         darkMode: false,
-        profilePicture: "images/myProfilePic.jpg",
+        profilePicture: "assets/images/myProfilePic.jpg",
       );
     }
   }

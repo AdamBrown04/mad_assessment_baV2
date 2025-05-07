@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_assessment_ba/models/gameHistory.dart';
 import 'package:mad_assessment_ba/providers/playerDetailsProvider.dart';
@@ -233,6 +234,9 @@ class _CurrentgamescreenState extends State<Currentgamescreen> {
                       ),
                     ),
                     onPressed: () async {
+                      //source for sound effect: https://sound-effects.bbcrewind.co.uk/search?q=07009146
+                      final player = AudioPlayer();
+                      await player.play(AssetSource("audio/bugleSound.mp3"));
                       final nextGameID = await Databaseservices.getNextGameID();
                       await Databaseservices.insertGameHistory(Gamehistory(
                           gameID: nextGameID,
